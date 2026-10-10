@@ -221,8 +221,6 @@ def homepage(lang):
     part = re.sub(r'(<a class="btn btn-ghost") href="#grades">[^<]*</a>', rf'\1 href="#produits">{h["hero_cta2"]}</a>', part, count=1)
     part = part.replace('href="#contact"', 'href="#devis"').replace('href="#grades"', 'href="#produits"')
     part = re.sub(r'(<div class="hero-media">\s*<div class="frame"><img)', r'\1 fetchpriority="high"', part, count=1)
-    part = part.replace("Boîte 25 lb", "Sac de 25 lb").replace("Boîte de 25 lb", "Sac de 25 lb").replace("25 lb box", "25 lb bag").replace("box", "bag")
-    part = part.replace("en boîte de 25 lb", "en sac de 25 lb").replace("boîte de 25 lb", "sac de 25 lb").replace("caisse", "sac")
     prods = "".join(f'<div class="prod"><span class="code">{p[lang][1]}</span><h3>{p[lang][0]}</h3><div class="price">{price(p["price"], lang)}<small>{fill(u["unit"], lang)}</small></div><p>{p[lang][2]}</p><a href="{L(p["page"], lang)}">{u["more"]}</a></div>' for p in C.PRODUCTS)
     terms = "".join(f"<div><b>{a}</b>{b}</div>" for a, b in C.TERMS[lang])
     photos = f'<div class="prodphoto"><div class="frame">{img_tag(C.IMG_BAG, h["photo_alt"][1])}</div><div class="frame">{img_tag(C.IMG_BAGS, h["photo_alt"][0])}</div></div>'

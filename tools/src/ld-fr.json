@@ -13,7 +13,7 @@
    "url": "https://entretienlaval.ca/",
    "logo": "https://entretienlaval.ca/favicon.svg",
    "image": "https://entretienlaval.ca/img/og-chiffons-eco.jpg",
-   "description": "Chiffons d'essuyage en coton recyclé, lavés et traités anti-punaises, en boîte de 25 lb. Tri et emballage à Laval.",
+   "description": "Chiffons d'essuyage en coton recyclé, lavés et traités anti-punaises, en sac de 25 lb. Tri et emballage à Laval.",
    "telephone": "+1-438-831-3611",
    "email": "hisham@entretienlaval.ca",
    "address": {
@@ -63,7 +63,7 @@
      "@type": "Offer",
      "itemOffered": {
       "@type": "Product",
-      "name": "Chiffons d'essuyage blancs recyclés — boîte de 25 lb",
+      "name": "Chiffons d'essuyage blancs recyclés — sac de 25 lb",
       "description": "Coton blanc trié, lavé et traité anti-punaises. Finition, peinture, vernis."
      }
     },
@@ -71,7 +71,7 @@
      "@type": "Offer",
      "itemOffered": {
       "@type": "Product",
-      "name": "Chiffons d'essuyage de couleur recyclés — boîte de 25 lb",
+      "name": "Chiffons d'essuyage de couleur recyclés — sac de 25 lb",
       "description": "Coton de couleurs mélangées, lavé et traité anti-punaises. Atelier, garage, chantier."
      }
     }

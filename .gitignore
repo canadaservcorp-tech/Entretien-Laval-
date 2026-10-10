@@ -1,7 +1,1 @@
-.DS_Store
-Thumbs.db
-.netlify/
-node_modules/
-*.log
-.env
-.env.*
+__pycache__/
