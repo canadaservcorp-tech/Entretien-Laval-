@@ -140,3 +140,10 @@ nav.main a{white-space:nowrap}
 .call{white-space:nowrap}
 @media(max-width:1180px){nav.main .ndevis{display:none}.call span{display:none}}
 @media(max-width:1000px){nav.main{gap:14px}nav.main a{font-size:14px}}
+.wafab{position:fixed;right:18px;bottom:18px;z-index:60;display:flex;align-items:center;gap:9px;background:#25D366;color:#06301a;font-weight:700;font-size:15px;text-decoration:none;padding:12px 18px 12px 14px;border-radius:999px;box-shadow:0 10px 24px -8px rgba(0,0,0,.45)}
+.wafab svg{width:26px;height:26px;flex:none}
+.wafab:hover{background:#1ebe5a}
+.wafab:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+footer{padding-bottom:90px}
+@media(max-width:600px){.wafab{right:14px;bottom:14px;padding:14px}.wafab span{display:none}}
+@media print{.wafab{display:none}}

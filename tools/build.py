@@ -115,6 +115,7 @@ def footer(lang):
 <div class="fbot"><span>© {YEAR} Entretien Laval — Chiffons ÉCO / ECO Rags</span><span><a href="{L('home', 'fr')}" lang="fr-CA">Français</a> · <a href="{L('home', 'en')}" lang="en-CA">English</a></span></div>
 </div>
 </footer>
+<a class="wafab" href="{C.WA[lang]}" target="_blank" rel="noopener" aria-label="{u['wa_fab']}">{ICON['wa'].replace('<svg', HID, 1)}<span>WhatsApp</span></a>
 <script>document.querySelectorAll('.mnav a').forEach(function(a){{a.addEventListener('click',function(){{a.closest('details').removeAttribute('open')}})}});</script>
 </body>
 </html>

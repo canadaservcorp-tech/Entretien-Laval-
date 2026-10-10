@@ -38,7 +38,7 @@ TERMS = {
 }
 
 UI = {
- "fr": {"home": "Accueil", "skip": "Aller au contenu", "menu": "Menu", "call": "Appeler le 438-831-3611",
+ "fr": {"home": "Accueil", "wa_fab": "WhatsApp : écrivez-nous au 438-831-3611", "skip": "Aller au contenu", "menu": "Menu", "call": "Appeler le 438-831-3611",
         "quote": "Demander une soumission", "call_btn": "Appeler", "sectors": "Secteurs", "products": "Produits",
         "guides": "Guides", "info": "Infos", "more": "En savoir plus →", "read": "Lire le guide →",
         "faq_h": "Questions fréquentes", "related": "À voir aussi", "prices_h": "Prix par [pack]",
@@ -47,7 +47,7 @@ UI = {
         "foot_tag": "Chiffons d'essuyage en textiles recyclés, triés et conditionnés à Laval, Québec.",
         "nav_label": "Navigation principale", "lang_name": "English", "crumbs": "Fil d'Ariane",
         "updated": "Mis à jour", "unit": "/ [pack]"},
- "en": {"home": "Home", "skip": "Skip to content", "menu": "Menu", "call": "Call 438-831-3611",
+ "en": {"home": "Home", "wa_fab": "WhatsApp: chat with us at 438-831-3611", "skip": "Skip to content", "menu": "Menu", "call": "Call 438-831-3611",
         "quote": "Request a quote", "call_btn": "Call", "sectors": "Industries", "products": "Products",
         "guides": "Guides", "info": "Info", "more": "Learn more →", "read": "Read the guide →",
         "faq_h": "Frequently asked questions", "related": "See also", "prices_h": "Price per [pack]",
