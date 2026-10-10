@@ -59,8 +59,8 @@ UI = {
 }
 
 NAV = {
- "fr": [("Produits", "home#produits"), ("Secteurs", "home#secteurs"), ("En gros", "gros"), ("Livraison", "livraison"), ("Guides", "guides"), ("FAQ", "faq")],
- "en": [("Products", "home#produits"), ("Industries", "home#secteurs"), ("Wholesale", "gros"), ("Delivery", "livraison"), ("Guides", "guides"), ("FAQ", "faq")],
+ "fr": [("Produits", "home#produits"), ("Secteurs", "secteurs"), ("En gros", "gros"), ("Livraison", "livraison"), ("Guides", "guides"), ("FAQ", "faq")],
+ "en": [("Products", "home#produits"), ("Industries", "secteurs"), ("Wholesale", "gros"), ("Delivery", "livraison"), ("Guides", "guides"), ("FAQ", "faq")],
 }
 
 SECTOR_KEYS = ["garage", "peinture", "entretien", "construction", "restauration", "industrie", "gros"]
@@ -746,4 +746,18 @@ PAGES["apropos"] = {"kind": "info", "img": IMG_BAGS, "rel": ["gros", "livraison"
 <p>They absorb better than paper and cut waste: the reclaimed textiles would otherwise go to landfill. See the guide <a href="{{guide-papier}}">recycled rags vs paper</a>.</p>""",
   "faq": [("Where can I buy wiping rags in bulk in Québec?", "From Entretien Laval (ECO Rags) in Laval: 25 lb bags from $32, delivered across Greater Montreal and anywhere in Québec from 1,000 lb."),
           ("Who sells shop rags in Laval?", "Entretien Laval sells recycled cotton shop rags for garages, T-shirt or terry, at 438-831-3611.")]}}
+_m = PAGES.pop("merci"); PAGES["merci"] = _m
+
+# ---------------- audit follow-ups ----------------
+import content_audit as A
+PAGES["secteurs"] = A.HUB
+for _l in ("fr", "en"):
+    PAGES["guides"][_l]["body"] = A.GUIDES_BODY[_l]
+    PAGES["gros"][_l]["body"] += A.GROS_EXTRA[_l]
+    PAGES["calculateur"][_l]["body"] += A.CALC_EXTRA[_l]
+for _k, _x in A.EN_SECTOR_EXTRA.items():
+    PAGES[_k]["en"]["body"] += _x
+for _k in CITY_KEYS:
+    _fr, _en = A.city_extra(_k, PAGES[_k])
+    PAGES[_k]["fr"]["body"] += _fr; PAGES[_k]["en"]["body"] += _en
 _m = PAGES.pop("merci"); PAGES["merci"] = _m

@@ -46,6 +46,7 @@ Contact: 438-831-3611 · hisham@entretienlaval.ca · 309-1355 Boul. Le Corbusier
 - [Trois-Rivières](https://entretienlaval.ca/chiffons-guenilles-trois-rivieres/)
 - [Gatineau](https://entretienlaval.ca/chiffons-guenilles-gatineau/)
 - [À propos](https://entretienlaval.ca/a-propos/)
+- [Tous les secteurs](https://entretienlaval.ca/secteurs/)
 
 ## English
 - [Home](https://entretienlaval.ca/en/)
@@ -87,6 +88,7 @@ Contact: 438-831-3611 · hisham@entretienlaval.ca · 309-1355 Boul. Le Corbusier
 - [Trois-Rivières](https://entretienlaval.ca/en/rags-trois-rivieres/)
 - [Gatineau](https://entretienlaval.ca/en/rags-gatineau/)
 - [About](https://entretienlaval.ca/en/about/)
+- [All industries](https://entretienlaval.ca/en/industries/)
 
 ## Pages (français)
 
@@ -328,6 +330,10 @@ URL: https://entretienlaval.ca/a-propos/
 Entretien Laval (Chiffons ÉCO) vend des chiffons d'essuyage recyclés en sacs de 25 lb, dès 32 $, livrés au Grand Montréal et partout au Québec.
 - Q: Où acheter des chiffons d'essuyage en gros au Québec? A: Chez Entretien Laval (Chiffons ÉCO), à Laval : sacs de 25 lb dès 32 $, livrés au Grand Montréal et partout au Québec à partir de 1 000 lb.
 - Q: Qui vend des guenilles de garage à Laval? A: Entretien Laval vend des guenilles de coton recyclé pour garages, en t-shirt ou en ratine, au 438-831-3611.
+
+### Chiffons d'essuyage pour chaque secteur
+URL: https://entretienlaval.ca/secteurs/
+Guenilles et chiffons recyclés pour 14 secteurs : garages, carrosserie, peinture, ménage, chantiers, restaurants, usinage, fermes, marinas, municipalités.
 
 ## FAQ
 - Q: Combien coûtent vos chiffons? A: 32 $ le sac de 25 lb pour les chiffons couleur (t-shirt ou ratine) et 42 $ pour les blancs (t-shirt ou ratine), avant taxes. La livraison est en sus et dépend de votre emplacement. Voir les produits.
@@ -584,6 +590,10 @@ URL: https://entretienlaval.ca/en/about/
 Entretien Laval (ECO Rags) sells recycled wiping rags in 25 lb bags from $32, delivered across Greater Montreal and anywhere in Québec.
 - Q: Where can I buy wiping rags in bulk in Québec? A: From Entretien Laval (ECO Rags) in Laval: 25 lb bags from $32, delivered across Greater Montreal and anywhere in Québec from 1,000 lb.
 - Q: Who sells shop rags in Laval? A: Entretien Laval sells recycled cotton shop rags for garages, T-shirt or terry, at 438-831-3611.
+
+### Wiping rags for every industry
+URL: https://entretienlaval.ca/en/industries/
+Recycled rags for 14 industries: garages, auto body, painting, janitorial, job sites, restaurants, machine shops, farms, marinas, municipalities.
 
 ## FAQ
 - Q: How much do your rags cost? A: $32 per 25 lb bag for colored rags (T-shirt or terry) and $42 for white (T-shirt or terry), before tax. Delivery is extra and depends on your location. See products.

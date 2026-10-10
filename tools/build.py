@@ -108,8 +108,8 @@ def footer(lang):
 <p class="legal" style="margin-top:14px">{u['foot_tag']}</p>
 <p class="legal" style="margin-top:10px"><a href="{C.TEL}">{C.PHONE}</a><br><a href="mailto:{C.EMAIL}">{C.EMAIL}</a><br><a href="https://www.instagram.com/entretienlaval/" rel="noopener">Instagram @entretienlaval</a></p></div>
 {col(u['products'], ['couleur', 'blancs', 'gros', 'livraison', 'apropos'])}
-{col(u['sectors'], ['garage', 'peinture', 'entretien', 'construction', 'restauration', 'industrie'])}
-{col(u['guides'], ['guide-huileux', 'guide-ratine', 'guide-ranger', 'glossaire', 'calculateur', 'faq'])}
+{col(u['sectors'], [k for k in C.SECTOR_KEYS if k != 'gros'] + ['secteurs'])}
+{col(u['guides'], ['guide-huileux', 'guide-papier', 'guide-ratine', 'guide-ranger', 'glossaire', 'calculateur', 'faq'])}
 </div>
 <div class="ftop"><div class="legal">Entretien Laval · NEQ 2280629637 · TPS 783132566 RT0001 · TVQ 4054025241 TQ0001<br>309-1355 Boul. Le Corbusier, Laval, QC H7N 0G4</div><div class="legal cityline">{u['delivery_to']} {" · ".join(f'<a href="{L(k, lang)}">{C.PAGES[k][lang]["short"]}</a>' for k in C.CITY_KEYS)}</div></div>
 <div class="fbot"><span>© {YEAR} Entretien Laval — Chiffons ÉCO / ECO Rags</span><span><a href="{L('home', 'fr')}" lang="fr-CA">Français</a> · <a href="{L('home', 'en')}" lang="en-CA">English</a></span></div>
@@ -146,12 +146,13 @@ def product_ld(pid, lang):
     p = PROD[pid]; name, _, d = p[lang]
     return {"@type": "Product", "name": f"{name} – {C.PACK[lang][0]}", "description": d, "brand": {"@type": "Brand", "name": "Chiffons ÉCO"},
             "image": C.SITE + "/img/" + C.IMG_BAG, "material": "coton recyclé" if lang == "fr" else "recycled cotton",
-            "offers": {"@type": "Offer", "price": f"{p['price']}.00", "priceCurrency": "CAD", "availability": "https://schema.org/InStock",
+            "offers": {"@type": "Offer", "price": f"{p['price']}.00", "priceCurrency": "CAD", "availability": "https://schema.org/InStock", "priceValidUntil": "2026-12-31",
                        "url": C.SITE + L(p["page"], lang), "seller": {"@id": BIZ_ID}}}
 
 def business(lang):
     b = json.load(open(os.path.join(SRC, f"ld-{lang}.json"), encoding="utf-8"))["@graph"][0]
     b["image"] = [C.SITE + "/img/og-chiffons-eco.jpg", C.SITE + "/img/" + C.IMG_BAG]
+    b["logo"] = C.SITE + "/img/logo-chiffons-eco-512.png"
     b["priceRange"] = "32 $ – 42 $" if lang == "fr" else "$32 – $42"
     b["areaServed"] = [{"@type": "City", "name": c} for c in ["Laval", "Montréal", "Longueuil", "Terrebonne", "Blainville", "Boisbriand", "Saint-Eustache", "Mirabel", "Saint-Jérôme", "Repentigny", "Brossard", "Boucherville", "Québec", "Lévis", "Sherbrooke", "Trois-Rivières", "Gatineau"]] + [{"@type": "AdministrativeArea", "name": "Québec"}]
     b["makesOffer"] = [{"@type": "Offer", "price": f"{p['price']}.00", "priceCurrency": "CAD", "itemOffered": {"@type": "Product", "name": f"{p[lang][0]} – {C.PACK[lang][0]}"}} for p in C.PRODUCTS]
@@ -193,7 +194,7 @@ var n=g('c-min');if(z&&w>0){{var m=Math.round(1000/(w*52/12)*10)/10;n.textConten
 # ---------- subpages ----------
 def subpage(key, lang):
     pg = C.PAGES[key]; t = pg[lang]; u = C.UI[lang]; kind = pg["kind"]
-    parent = {"sector": [(u["sectors"], L("home#secteurs", lang))], "product": [(u["products"], L("home#produits", lang))],
+    parent = {"sector": [(C.PAGES["secteurs"][lang]["short"], L("secteurs", lang))], "product": [(u["products"], L("home#produits", lang))],
               "guide": [(C.PAGES["guides"][lang]["short"], L("guides", lang))], "tool": [(C.PAGES["guides"][lang]["short"], L("guides", lang))],
               "city": [(C.PAGES["livraison"][lang]["short"], L("livraison", lang))]}.get(kind, [])
     ch, cj = crumbs(lang, parent + [(t["short"], L(key, lang))])
@@ -231,8 +232,9 @@ def subpage(key, lang):
         if faq: body += f'<section class="section band"><div class="wrap"><div class="sec-head"><h2>{u["faq_h"]}</h2></div>{faq_html(faq, lang)}</div></section>'
     elif kind == "faq":
         body += f'<section class="section"><div class="wrap cgrid"><div>{faq_html(faq, lang)}</div><aside class="side">{price_box(lang)}</aside></div></section>'
-    elif kind == "guides":
-        body += f'<section class="section"><div class="wrap">{cards(C.GUIDE_KEYS, lang, u["read"])}</div></section>'
+    elif kind in ("guides", "hub"):
+        if t.get("body"): body += f'<section class="section" style="padding-bottom:0"><div class="wrap"><div class="prose">{fill(t["body"], lang)}</div></div></section>'
+        body += f'<section class="section"><div class="wrap">{cards(C.GUIDE_KEYS if kind == "guides" else [k for k in C.SECTOR_KEYS if k != "gros"], lang, u["read"] if kind == "guides" else None)}</div></section>'
     if key == "livraison":
         body += f'<section class="section"><div class="wrap"><div class="sec-head"><h2>{"Villes et régions desservies" if lang == "fr" else "Cities and regions we serve"}</h2></div>{cards(C.CITY_KEYS, lang)}</div></section>'
     if pg["rel"]:
