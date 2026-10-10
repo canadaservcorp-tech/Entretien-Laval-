@@ -47,6 +47,7 @@ Contact: 438-831-3611 · hisham@entretienlaval.ca · 309-1355 Boul. Le Corbusier
 - [Gatineau](https://entretienlaval.ca/chiffons-guenilles-gatineau/)
 - [À propos](https://entretienlaval.ca/a-propos/)
 - [Tous les secteurs](https://entretienlaval.ca/secteurs/)
+- [Commander en ligne](https://entretienlaval.ca/commander/)
 
 ## English
 - [Home](https://entretienlaval.ca/en/)
@@ -89,6 +90,7 @@ Contact: 438-831-3611 · hisham@entretienlaval.ca · 309-1355 Boul. Le Corbusier
 - [Gatineau](https://entretienlaval.ca/en/rags-gatineau/)
 - [About](https://entretienlaval.ca/en/about/)
 - [All industries](https://entretienlaval.ca/en/industries/)
+- [Order online](https://entretienlaval.ca/en/order/)
 
 ## Pages (français)
 
@@ -334,6 +336,14 @@ Entretien Laval (Chiffons ÉCO) vend des chiffons d'essuyage recyclés en sacs d
 ### Chiffons d'essuyage pour chaque secteur
 URL: https://entretienlaval.ca/secteurs/
 Guenilles et chiffons recyclés pour 14 secteurs : garages, carrosserie, peinture, ménage, chantiers, restaurants, usinage, fermes, marinas, municipalités.
+
+### Commander des chiffons en ligne
+URL: https://entretienlaval.ca/commander/
+Commandez vos chiffons d'essuyage recyclés en ligne : sacs de 25 lb dès 32 $, TPS et TVQ incluses au paiement, livrés à Laval et Montréal.
+- Q: Dois-je avoir un compte PayPal? A: Non. Le bouton carte permet de payer par carte de crédit ou de débit sans compte PayPal.
+- Q: Quand suis-je livré? A: Nous vous contactons après le paiement pour fixer la date de livraison à votre adresse à Laval ou Montréal.
+- Q: Combien coûte la livraison? A: Laval (code postal H7) : 15 $ par commande, dès 1 sac. Montréal (autres codes postaux en H) : 25 $ par commande, minimum 2 sacs. Taxes en sus.
+- Q: Y a-t-il des frais pour payer en ligne? A: Non. Vous payez le prix des produits, la livraison et les taxes, comme pour une commande par soumission.
 
 ## FAQ
 - Q: Combien coûtent vos chiffons? A: 32 $ le sac de 25 lb pour les chiffons couleur (t-shirt ou ratine) et 42 $ pour les blancs (t-shirt ou ratine), avant taxes. La livraison est en sus et dépend de votre emplacement. Voir les produits.
@@ -594,6 +604,14 @@ Entretien Laval (ECO Rags) sells recycled wiping rags in 25 lb bags from $32, de
 ### Wiping rags for every industry
 URL: https://entretienlaval.ca/en/industries/
 Recycled rags for 14 industries: garages, auto body, painting, janitorial, job sites, restaurants, machine shops, farms, marinas, municipalities.
+
+### Order rags online
+URL: https://entretienlaval.ca/en/order/
+Order recycled wiping rags online: 25 lb bags from $32, GST and QST shown at checkout, delivered in Laval and Montreal. Pay with PayPal or card.
+- Q: Do I need a PayPal account? A: No. The card button lets you pay with a credit or debit card without a PayPal account.
+- Q: When is it delivered? A: We contact you after payment to set the delivery date at your Laval or Montréal address.
+- Q: How much is delivery? A: Laval (postal code H7): $15 per order, from 1 bag. Montréal (other H postal codes): $25 per order, minimum 2 bags. Plus tax.
+- Q: Is there a fee for paying online? A: No. You pay the product price, delivery and taxes, the same as an order by quote.
 
 ## FAQ
 - Q: How much do your rags cost? A: $32 per 25 lb bag for colored rags (T-shirt or terry) and $42 for white (T-shirt or terry), before tax. Delivery is extra and depends on your location. See products.

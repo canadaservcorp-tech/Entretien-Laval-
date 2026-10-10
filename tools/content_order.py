@@ -15,7 +15,7 @@ CHECKOUT = {
     ],
     "free_delivery_from": None,  # number of bags from which delivery is free, or None for never
     "max_bags": 10,              # most bags per online order; bigger orders go through the quote form
-    "paypal_client_id": "",      # PUBLIC Client ID from developer.paypal.com (sandbox one while testing). The SECRET never goes here.
+    "paypal_client_id": "BAA7CVLL36x2u_-E5rZ-Hd6kbJU89nTnWcq-4QA6O_QuCEfR20y8CqcHqKdD50_H2ElEgc0tfhci7wy2wQ",      # PUBLIC Client ID from developer.paypal.com (sandbox one while testing). The SECRET never goes here.
     # ---- fixed ----
     "gst": 0.05,                 # TPS
     "qst": 0.09975,              # TVQ
