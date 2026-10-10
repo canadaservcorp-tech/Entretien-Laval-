@@ -166,3 +166,12 @@ footer{padding-bottom:90px}
 .ftop .cityline{margin-top:10px;font-size:13px;line-height:1.9}
 .ftop .cityline a{color:inherit}
 @media(max-width:700px){.calc .row,.calc .res{grid-template-columns:1fr 1fr}}
+
+/* online order */
+.osum{width:100%;border-collapse:collapse;margin-top:12px;font-size:15.5px}
+.osum th{text-align:left;font-weight:500;padding:9px 0;border-bottom:1px solid var(--line-2)}
+.osum td{text-align:right;padding:9px 0;border-bottom:1px solid var(--line-2);font-variant-numeric:tabular-nums}
+.osum .tot th,.osum .tot td{font-weight:800;font-size:18px;border-bottom:0}
+.oerr{margin:16px 0 0;padding:12px 14px;border-left:3px solid var(--rust);background:var(--paper-2);border-radius:0 9px 9px 0;font-size:14.5px}
+#paypal-buttons{margin-top:20px;max-width:420px}
+.pbox .btn+.btn{margin-top:8px}

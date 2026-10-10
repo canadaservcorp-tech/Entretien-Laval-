@@ -1,0 +1,31 @@
+{
+ "enabled": false,
+ "fee": 0,
+ "free": null,
+ "gst": 0.05,
+ "max": 10,
+ "postal": "^H\\d[A-Z] ?\\d[A-Z]\\d$",
+ "products": {
+  "ratine-blanc": {
+   "name_en": "White terry rags",
+   "name_fr": "Chiffons ratine blanc",
+   "price": 42
+  },
+  "ratine-couleur": {
+   "name_en": "Colored terry rags",
+   "name_fr": "Chiffons ratine couleur",
+   "price": 32
+  },
+  "tshirt-blanc": {
+   "name_en": "White T-shirt rags",
+   "name_fr": "Chiffons t-shirt blanc",
+   "price": 42
+  },
+  "tshirt-couleur": {
+   "name_en": "Colored T-shirt rags",
+   "name_fr": "Chiffons t-shirt couleur",
+   "price": 32
+  }
+ },
+ "qst": 0.09975
+}

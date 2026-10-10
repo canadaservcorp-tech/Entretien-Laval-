@@ -4,6 +4,7 @@ import datetime, glob, hashlib, html, json, os, re, sys
 from PIL import Image
 sys.path.insert(0, os.path.dirname(__file__))
 import content as C
+import content_order as O
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SRC = os.path.join(ROOT, "tools", "src")
@@ -130,7 +131,7 @@ def footer(lang):
 <div><div class="fbrand"><svg aria-hidden="true"><use href="#mark"></use></svg> Chiffons ÉCO — Entretien Laval</div>
 <p class="legal" style="margin-top:14px">{u['foot_tag']}</p>
 <p class="legal" style="margin-top:10px"><a href="{C.TEL}">{C.PHONE}</a><br><a href="mailto:{C.EMAIL}">{C.EMAIL}</a><br><a href="https://www.instagram.com/entretienlaval/" rel="noopener">Instagram @entretienlaval</a></p></div>
-{col(u['products'], ['couleur', 'blancs', 'gros', 'livraison', 'apropos'])}
+{col(u['products'], (['commander'] if 'commander' in C.PAGES else []) + ['couleur', 'blancs', 'gros', 'livraison', 'apropos'])}
 {col(u['sectors'], [k for k in C.SECTOR_KEYS if k != 'gros'] + ['secteurs'])}
 {col(u['guides'], ['guide-huileux', 'guide-papier', 'guide-ratine', 'guide-ranger', 'glossaire', 'calculateur', 'faq'])}
 </div>
@@ -153,7 +154,54 @@ def faq_ld(items, lang):
 def price_box(lang, ids=None):
     u = C.UI[lang]
     rows = "".join(f'<div class="pline"><span>{PROD[i][lang][0]}</span><b>{price(PROD[i]["price"], lang)}</b></div>' for i in (ids or [p["id"] for p in C.PRODUCTS]))
-    return f'<div class="pbox"><h2>{fill(u["prices_h"], lang)}</h2>{rows}<p class="small">{u["prices_note"]}</p><a class="btn btn-primary" href="{L("home#devis", lang)}">{u["quote"]}</a><a class="btn btn-ghost" href="{C.TEL}">{u["call_btn"]} {C.PHONE}</a></div>'
+    return f'<div class="pbox"><h2>{fill(u["prices_h"], lang)}</h2>{rows}<p class="small">{u["prices_note"]}</p>{order_btn(lang)}<a class="btn btn-primary" href="{L("home#devis", lang)}">{u["quote"]}</a><a class="btn btn-ghost" href="{C.TEL}">{u["call_btn"]} {C.PHONE}</a></div>'
+
+def order_btn(lang):
+    if "commander" not in C.PAGES: return ""
+    return f'<a class="btn btn-primary" href="{L("commander", lang)}">{C.PAGES["commander"][lang]["short"]}</a>'
+
+def order_html(lang):
+    ck, ou = O.CHECKOUT, O.UI[lang]
+    qty = "".join(f'<div><label for="o-{p["id"]}">{p[lang][0]} – {price(p["price"], lang)}</label><input id="o-{p["id"]}" class="oqty" data-id="{p["id"]}" type="number" min="0" max="{ck["max_bags"]}" step="1" value="0" inputmode="numeric"></div>' for p in C.PRODUCTS)
+    def fld(name, label, typ="text", req=True, ac="", full=False, extra=""):
+        star = " *" if req else ""
+        tag = f'<textarea id="o-{name}" name="{name}" maxlength="500"></textarea>' if typ == "textarea" else f'<input id="o-{name}" name="{name}" type="{typ}"{" required" if req else ""}{f' autocomplete="{ac}"' if ac else ""}{extra}>'
+        return f'<div{" class=\"full\"" if full else ""}><label for="o-{name}">{label}{star}</label>{tag}</div>'
+    fields = (fld("nom", ou["name"], ac="name") + fld("entreprise", ou["company"], req=False, ac="organization")
+              + fld("courriel", ou["email"], "email", ac="email") + fld("telephone", ou["phone"], "tel", ac="tel", extra=' minlength="7"')
+              + fld("adresse", ou["address"], ac="street-address", full=True) + fld("ville", ou["city"], ac="address-level2")
+              + fld("code_postal", ou["postal"], ac="postal-code", extra=' maxlength="7" placeholder="H7N 0G4"')
+              + fld("instructions", ou["notes"], "textarea", req=False, full=True))
+    rows = "".join(f'<tr><th scope="row">{a}</th><td id="{b}">–</td></tr>' for a, b in [(ou["goods"], "o-goods"), (ou["delivery"], "o-del"), (ou["gst"], "o-gst"), (ou["qst"], "o-qst")])
+    cfg = {"lang": lang, "fee": ck["delivery_fee"], "free": ck["free_delivery_from"], "max": ck["max_bags"], "gst": ck["gst"], "qst": ck["qst"],
+           "postal": ck["postal_regex"], "fn": "/.netlify/functions", "thanks": L("merci", lang), "ui": ou,
+           "products": [{"id": p["id"], "price": p["price"], "name": p[lang][0]} for p in C.PRODUCTS]}
+    names = ["langue", "commande_paypal", "capture", "statut", "montant", "details", "totaux", "nom", "entreprise", "courriel", "telephone", "adresse", "ville", "code_postal", "instructions"]
+    hidden = '<form name="commande" data-netlify="true" netlify-honeypot="bot-field" hidden><input name="bot-field">' + "".join(f'<input name="{n}">' for n in names) + "</form>"
+    sdk = f'https://www.paypal.com/sdk/js?client-id={ck["paypal_client_id"]}&currency=CAD&intent=capture&components=buttons&enable-funding=card&locale={lang}_CA'
+    return f"""<section class="section band" id="commande"><div class="wrap"><form class="qform oform" id="oform" novalidate>
+<h3>{C.PAGES["commander"][lang]["h1"]}</h3><p class="sub">{ou["note"]}</p>
+<div class="fgrid">{qty}</div>
+<h3 style="margin-top:26px;font-size:20px">{ou["contact_h"]}</h3>
+<div class="fgrid">{fields}</div>
+<h3 style="margin-top:26px;font-size:20px">{ou["sum_h"]}</h3>
+<table class="osum">{rows}<tr class="tot"><th scope="row">{ou["total"]}</th><td id="o-total">–</td></tr></table>
+<p class="oerr" id="o-err" role="alert" hidden></p>
+<div id="paypal-buttons" aria-label="{ou["pay_h"]}"></div>
+</form>{hidden}</div></section>
+<script src="{esc(sdk)}" defer></script>
+<script>window.ORDER_CFG={json.dumps(cfg, ensure_ascii=False).replace("</", "<\\/")};</script>
+<script>{rd("order.js")}</script>"""
+
+def checkout_catalog():
+    ck = O.CHECKOUT
+    os.makedirs(os.path.join(ROOT, "netlify", "lib"), exist_ok=True)
+    cat = {"enabled": O.ready(), "fee": ck["delivery_fee"] or 0, "free": ck["free_delivery_from"], "max": ck["max_bags"],
+           "gst": ck["gst"], "qst": ck["qst"], "postal": ck["postal_regex"],
+           "products": {p["id"]: {"price": p["price"], "name_fr": p["fr"][0], "name_en": p["en"][0]} for p in C.PRODUCTS}}
+    json.dump(cat, open(os.path.join(ROOT, "netlify", "lib", "catalog.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1, sort_keys=True)
+    if not O.ready():
+        print("Online ordering OFF: set delivery_fee and paypal_client_id in tools/content_order.py")
 
 def price(n, lang): return f"{n},00 $" if lang == "fr" else f"${n}.00"
 
@@ -228,7 +276,8 @@ def subpage(key, lang):
     pg = C.PAGES[key]; t = pg[lang]; u = C.UI[lang]; kind = pg["kind"]
     parent = {"sector": [(C.PAGES["secteurs"][lang]["short"], L("secteurs", lang))], "product": [(u["products"], L("home#produits", lang))],
               "guide": [(C.PAGES["guides"][lang]["short"], L("guides", lang))], "tool": [(C.PAGES["guides"][lang]["short"], L("guides", lang))],
-              "city": [(C.PAGES["livraison"][lang]["short"], L("livraison", lang))]}.get(kind, [])
+              "city": [(C.PAGES["livraison"][lang]["short"], L("livraison", lang))],
+              "order": [(u["products"], L("home#produits", lang))]}.get(kind, [])
     ch, cj = crumbs(lang, parent + [(t["short"], L(key, lang))])
     faq = t.get("faq") or (C.FAQ[lang] if kind == "faq" else [])
     graph = [{"@type": "Article" if kind == "guide" else "WebPage", "@id": C.SITE + L(key, lang) + "#page", "url": C.SITE + L(key, lang),
@@ -255,7 +304,7 @@ def subpage(key, lang):
     if noindex: hero_cta = f'<div class="cta-row"><a class="btn btn-primary" href="{L("home", lang)}">{u["home"]}</a></div>'
     hero = f'<section class="phero"><div class="wrap {"phero-grid" if media else ""}"><div><div class="eyebrow">{t["eyebrow"]}</div><h1>{t["h1"]}</h1><p class="lede">{fill(t["lede"], lang)}</p>{hero_cta}</div>{media}</div></section>'
     body = ""
-    if kind in ("sector", "product", "info", "guide", "city", "tool"):
+    if kind in ("sector", "product", "info", "guide", "city", "tool", "order"):
         ids = pg.get("products")
         side = price_box(lang, ids)
         if kind == "product":
@@ -264,6 +313,7 @@ def subpage(key, lang):
         if kind in ("info", "city"):
             body += f'<section class="section band"><div class="wrap"><div class="terms" style="margin-top:0">' + "".join(f"<div><b>{a}</b>{b}</div>" for a, b in C.TERMS[lang]) + "</div></div></section>"
         if kind == "tool": body += calc_html(t, lang)
+        if kind == "order": body += order_html(lang)
         body += f'<section class="section"><div class="wrap cgrid"><article class="prose">{fill(t["body"], lang)}{gloss(t)}</article><aside class="side">{side}</aside></div></section>'
         if faq: body += f'<section class="section band"><div class="wrap"><div class="sec-head"><h2>{u["faq_h"]}</h2></div>{faq_html(faq, lang)}</div></section>'
     elif kind == "faq":
@@ -276,6 +326,12 @@ def subpage(key, lang):
     if pg["rel"]:
         body += f'<section class="section"><div class="wrap"><div class="sec-head"><h2>{u["related"]}</h2></div>{cards(pg["rel"], lang)}</div></section>'
     if not noindex: body += ctaband(lang)
+    if kind == "thanks":
+        msg = {"fr": ("Merci! Votre paiement est reçu.", "Commande no {id}. Nous vous contactons rapidement pour fixer la date de livraison. Questions : 438-831-3611."),
+               "en": ("Thank you! Your payment was received.", "Order no. {id}. We'll contact you shortly to set the delivery date. Questions: 438-831-3611.")}[lang]
+        body += ("<script>(function(){var id=new URLSearchParams(location.search).get('commande');if(!id)return;"
+                 f"document.querySelector('h1').textContent={json.dumps(msg[0], ensure_ascii=False)};"
+                 f"var l=document.querySelector('.lede');if(l)l.textContent={json.dumps(msg[1], ensure_ascii=False)}.replace('{{id}}',id.slice(0,40));}})();</script>")
     img = "/img/" + pg["img"] if pg.get("img") else "/img/og-chiffons-eco.jpg"
     doc = head(lang, t["title"], t["desc"], key, {"@context": "https://schema.org", "@graph": graph}, image=img, noindex=noindex, image_alt=t.get("alt", "") if pg.get("img") else "",
                ogtype="article" if kind == "guide" else "website") + header(lang, key) + ch + hero + body + footer(lang)
@@ -423,5 +479,6 @@ for l in LANGS:
     for k in C.PAGES: subpage(k, l)
 notfound(); sitemap(); llms()
 merchant_feed("fr"); merchant_feed("en")
+checkout_catalog()
 json.dump(DATES, open(DATES_FILE, "w", encoding="utf-8"), ensure_ascii=False, indent=1, sort_keys=True)
 print("built", 2 * (1 + len(C.PAGES)), "pages + 404;", CSS)

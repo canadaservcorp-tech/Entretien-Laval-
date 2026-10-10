@@ -761,4 +761,9 @@ for _k, _x in A.EN_SECTOR_EXTRA.items():
 for _k in CITY_KEYS:
     _fr, _en = A.city_extra(_k, PAGES[_k])
     PAGES[_k]["fr"]["body"] += _fr; PAGES[_k]["en"]["body"] += _en
+
+# ---------------- online ordering (PayPal) ----------------
+import content_order as O
+if O.ready():
+    PAGES["commander"] = O.PAGE
 _m = PAGES.pop("merci"); PAGES["merci"] = _m

@@ -1,6 +1,12 @@
 [build]
   publish = "."
 
+# PayPal checkout (server side). Secrets: Netlify > Site configuration > Environment variables
+# PAYPAL_CLIENT_ID, PAYPAL_CLIENT_SECRET, PAYPAL_ENV = sandbox | live
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
 # Long cache for images and icons (file names change when images change)
 [[headers]]
   for = "/img/*"
@@ -38,3 +44,10 @@
   [headers.values]
     Content-Type = "application/xml; charset=utf-8"
     X-Robots-Tag = "noindex"
+
+# Function source code is not part of the public site (functions run at /.netlify/functions/)
+[[redirects]]
+  from = "/netlify/*"
+  to = "/404.html"
+  status = 404
+  force = true
