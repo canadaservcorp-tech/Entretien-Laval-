@@ -46,7 +46,7 @@ UI = {
         "cta_h": "Besoin de chiffons pour votre entreprise?", "cta_p": "Soumission rapide, échantillons sur demande, livraison à votre adresse.",
         "foot_tag": "Chiffons d'essuyage en textiles recyclés, triés et conditionnés à Laval, Québec.",
         "nav_label": "Navigation principale", "lang_name": "English", "crumbs": "Fil d'Ariane",
-        "updated": "Mis à jour", "unit": "/ [pack]"},
+        "updated": "Mis à jour", "unit": "/ [pack]", "delivery_to": "Livraison :"},
  "en": {"home": "Home", "wa_fab": "WhatsApp: chat with us at 438-831-3611", "skip": "Skip to content", "menu": "Menu", "call": "Call 438-831-3611",
         "quote": "Request a quote", "call_btn": "Call", "sectors": "Industries", "products": "Products",
         "guides": "Guides", "info": "Info", "more": "Learn more →", "read": "Read the guide →",
@@ -55,7 +55,7 @@ UI = {
         "cta_h": "Need rags for your business?", "cta_p": "Fast quote, samples on request, delivered to your address.",
         "foot_tag": "Wiping rags made from recycled textiles, sorted and packed in Laval, Québec.",
         "nav_label": "Main navigation", "lang_name": "Français", "crumbs": "Breadcrumb",
-        "updated": "Updated", "unit": "/ [pack]"},
+        "updated": "Updated", "unit": "/ [pack]", "delivery_to": "Delivery:"},
 }
 
 NAV = {
@@ -698,3 +698,13 @@ PAGES["merci"] = {"kind": "thanks", "img": None, "rel": [],
  "en": {"path": "/en/thanks/", "short": "Thanks", "title": "Thank you – request received | ECO Rags", "desc": "Your quote request was received.",
   "eyebrow": "Request received", "h1": "Thank you! Your request was sent.", "lede": "We'll get back to you quickly by email or phone. For anything urgent, call 438-831-3611.", "card": "", "body": ""},
 }
+
+# ---------------- expansion modules ----------------
+from content_sectors2 import SECTOR2_PAGES, SECTOR2_KEYS
+from content_guides2 import GUIDE2_PAGES
+from content_cities import CITY_PAGES, CITY_KEYS
+_merci = PAGES.pop("merci")
+PAGES.update(SECTOR2_PAGES); PAGES.update(GUIDE2_PAGES); PAGES.update(CITY_PAGES)
+PAGES["merci"] = _merci
+SECTOR_KEYS = SECTOR_KEYS + SECTOR2_KEYS
+GUIDE_KEYS = [k for k, p in PAGES.items() if p["kind"] in ("guide", "tool")]

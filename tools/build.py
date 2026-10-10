@@ -109,9 +109,9 @@ def footer(lang):
 <p class="legal" style="margin-top:10px"><a href="{C.TEL}">{C.PHONE}</a><br><a href="mailto:{C.EMAIL}">{C.EMAIL}</a><br><a href="https://www.instagram.com/entretienlaval/" rel="noopener">Instagram @entretienlaval</a></p></div>
 {col(u['products'], ['couleur', 'blancs', 'gros', 'livraison'])}
 {col(u['sectors'], ['garage', 'peinture', 'entretien', 'construction', 'restauration', 'industrie'])}
-{col(u['guides'], ['guide-huileux', 'guide-papier', 'guides', 'faq'])}
+{col(u['guides'], ['guide-huileux', 'guide-ratine', 'guide-ranger', 'glossaire', 'calculateur', 'faq'])}
 </div>
-<div class="ftop"><div class="legal">Entretien Laval · NEQ 2280629637 · TPS 783132566 RT0001 · TVQ 4054025241 TQ0001<br>309-1355 Boul. Le Corbusier, Laval, QC H7N 0G4</div></div>
+<div class="ftop"><div class="legal">Entretien Laval · NEQ 2280629637 · TPS 783132566 RT0001 · TVQ 4054025241 TQ0001<br>309-1355 Boul. Le Corbusier, Laval, QC H7N 0G4</div><div class="legal cityline">{u['delivery_to']} {" · ".join(f'<a href="{L(k, lang)}">{C.PAGES[k][lang]["short"]}</a>' for k in C.CITY_KEYS)}</div></div>
 <div class="fbot"><span>© {YEAR} Entretien Laval — Chiffons ÉCO / ECO Rags</span><span><a href="{L('home', 'fr')}" lang="fr-CA">Français</a> · <a href="{L('home', 'en')}" lang="en-CA">English</a></span></div>
 </div>
 </footer>
@@ -153,7 +153,7 @@ def business(lang):
     b = json.load(open(os.path.join(SRC, f"ld-{lang}.json"), encoding="utf-8"))["@graph"][0]
     b["image"] = [C.SITE + "/img/og-chiffons-eco.jpg", C.SITE + "/img/" + C.IMG_BAG]
     b["priceRange"] = "32 $ – 42 $" if lang == "fr" else "$32 – $42"
-    b["areaServed"] = [{"@type": "City", "name": c} for c in ["Laval", "Montréal", "Longueuil", "Terrebonne", "Blainville", "Boisbriand"]] + [{"@type": "AdministrativeArea", "name": "Québec"}]
+    b["areaServed"] = [{"@type": "City", "name": c} for c in ["Laval", "Montréal", "Longueuil", "Terrebonne", "Blainville", "Boisbriand", "Saint-Eustache", "Mirabel", "Saint-Jérôme", "Repentigny", "Brossard", "Boucherville", "Québec", "Lévis", "Sherbrooke", "Trois-Rivières", "Gatineau"]] + [{"@type": "AdministrativeArea", "name": "Québec"}]
     b["makesOffer"] = [{"@type": "Offer", "price": f"{p['price']}.00", "priceCurrency": "CAD", "itemOffered": {"@type": "Product", "name": f"{p[lang][0]} – {C.PACK[lang][0]}"}} for p in C.PRODUCTS]
     return b
 
@@ -170,11 +170,32 @@ def write(path, s):
     s = re.sub(r"\n{2,}", "\n", s)
     open(out, "w", encoding="utf-8").write(s)
 
+def gloss(t):
+    if not t.get("terms"): return ""
+    return '<dl class="gloss">' + "".join(f"<dt>{esc(a)}</dt><dd>{esc(b)}</dd>" for a, b in t["terms"]) + "</dl>"
+
+def calc_html(t, lang):
+    x = t["tool"]
+    opts = "".join(f'<option value="{p["price"]}">{p[lang][0]} – {price(p["price"], lang)}</option>' for p in C.PRODUCTS)
+    h = f"""<section class="section"><div class="wrap"><form class="calc" id="calc" onsubmit="return false">
+<div class="row"><div><label for="c-lbw">{x['lbw']}</label><input id="c-lbw" type="number" min="1" step="1" value="25" inputmode="numeric"></div>
+<div><label for="c-prod">{x['prod']}</label><select id="c-prod">{opts}</select></div>
+<div><label for="c-zone">{x['zone']}</label><select id="c-zone"><option value="0">{x['z1']}</option><option value="1">{x['z2']}</option></select></div></div>
+<div class="res" aria-live="polite"><div>{x['bags']}<output id="c-bags">–</output></div><div>{x['pre']}<output id="c-pre">–</output></div><div>{x['tax']}<output id="c-tax">–</output></div><div>{x['tot']}<output id="c-tot">–</output></div></div>
+<p class="note" id="c-min" hidden></p></form></div></section>
+<script>(function(){{var L='LANG',M=MINMSG;function f(n){{return L=='fr'?n.toLocaleString('fr-CA',{{minimumFractionDigits:2,maximumFractionDigits:2}})+' $':'$'+n.toLocaleString('en-CA',{{minimumFractionDigits:2,maximumFractionDigits:2}})}}
+function g(i){{return document.getElementById(i)}}function r(){{var w=parseFloat(g('c-lbw').value)||0,pr=parseFloat(g('c-prod').value),z=g('c-zone').value=='1';
+var bags=Math.ceil(w*52/12/25),pre=bags*pr,tax=Math.round(pre*0.14975*100)/100;g('c-bags').textContent=bags;g('c-pre').textContent=f(pre);g('c-tax').textContent=f(tax);g('c-tot').textContent=f(pre+tax);
+var n=g('c-min');if(z&&w>0){{var m=Math.round(1000/(w*52/12)*10)/10;n.textContent=M.replace('{{m}}',m.toLocaleString(L=='fr'?'fr-CA':'en-CA'));n.hidden=false}}else n.hidden=true}}
+['c-lbw','c-prod','c-zone'].forEach(function(i){{g(i).addEventListener('input',r)}});r()}})();</script>"""
+    return h.replace("'LANG'", repr(lang)).replace("MINMSG", json.dumps(x["min"], ensure_ascii=False))
+
 # ---------- subpages ----------
 def subpage(key, lang):
     pg = C.PAGES[key]; t = pg[lang]; u = C.UI[lang]; kind = pg["kind"]
     parent = {"sector": [(u["sectors"], L("home#secteurs", lang))], "product": [(u["products"], L("home#produits", lang))],
-              "guide": [(C.PAGES["guides"][lang]["short"], L("guides", lang))]}.get(kind, [])
+              "guide": [(C.PAGES["guides"][lang]["short"], L("guides", lang))], "tool": [(C.PAGES["guides"][lang]["short"], L("guides", lang))],
+              "city": [(C.PAGES["livraison"][lang]["short"], L("livraison", lang))]}.get(kind, [])
     ch, cj = crumbs(lang, parent + [(t["short"], L(key, lang))])
     faq = t.get("faq") or (C.FAQ[lang] if kind == "faq" else [])
     graph = [{"@type": "Article" if kind == "guide" else "WebPage", "@id": C.SITE + L(key, lang) + "#page", "url": C.SITE + L(key, lang),
@@ -184,26 +205,36 @@ def subpage(key, lang):
     if kind == "guide": graph[0].update({"author": {"@id": BIZ_ID}, "image": C.SITE + "/img/" + pg["img"]})
     if faq and kind != "thanks": graph.append(faq_ld(faq, lang))
     for pid in pg.get("products", []): graph.append(product_ld(pid, lang))
+    if kind == "city":
+        cname = pg["city"] if lang == "fr" else pg["city_en"]
+        graph.append({"@type": "Service", "name": t["h1"], "serviceType": "Livraison de chiffons d'essuyage recyclés" if lang == "fr" else "Recycled wiping rag delivery",
+                      "provider": {"@id": BIZ_ID}, "areaServed": {"@type": "Place", "name": cname.replace("la ", "").replace("the ", "")},
+                      "offers": [{"@type": "Offer", "price": f"{q['price']}.00", "priceCurrency": "CAD", "itemOffered": {"@type": "Product", "name": f"{q[lang][0]} – {C.PACK[lang][0]}"}} for q in C.PRODUCTS]})
+    if t.get("terms"):
+        graph.append({"@type": "DefinedTermSet", "name": t["h1"], "inLanguage": f"{lang}-CA", "hasDefinedTerm": [{"@type": "DefinedTerm", "name": a, "description": b} for a, b in t["terms"]]})
     noindex = kind == "thanks"
     media = f'<div class="frame">{img_tag(pg["img"], t["alt"], lazy=False, hi=True)}</div>' if pg.get("img") else ""
     hero_cta = "" if noindex else f'<div class="cta-row"><a class="btn btn-primary" href="{L("home#devis", lang)}">{u["quote"]}</a><a class="btn btn-ghost" href="{C.TEL}">{u["call_btn"]} {C.PHONE}</a></div>'
     if noindex: hero_cta = f'<div class="cta-row"><a class="btn btn-primary" href="{L("home", lang)}">{u["home"]}</a></div>'
     hero = f'<section class="phero"><div class="wrap {"phero-grid" if media else ""}"><div><div class="eyebrow">{t["eyebrow"]}</div><h1>{t["h1"]}</h1><p class="lede">{fill(t["lede"], lang)}</p>{hero_cta}</div>{media}</div></section>'
     body = ""
-    if kind in ("sector", "product", "info", "guide"):
+    if kind in ("sector", "product", "info", "guide", "city", "tool"):
         ids = pg.get("products")
         side = price_box(lang, ids)
         if kind == "product":
             prods = "".join(f'<div class="prod"><span class="code">{PROD[i][lang][1]}</span><h3>{PROD[i][lang][0]}</h3><div class="price">{price(PROD[i]["price"], lang)}<small>{fill(u["unit"], lang)}</small></div><p>{PROD[i][lang][2]}</p></div>' for i in ids)
             body += f'<section class="section band"><div class="wrap"><div class="prods" style="grid-template-columns:repeat(auto-fit,minmax(240px,1fr))">{prods}</div><div class="terms">' + "".join(f"<div><b>{a}</b>{b}</div>" for a, b in C.TERMS[lang]) + "</div></div></section>"
-        if kind == "info":
+        if kind in ("info", "city"):
             body += f'<section class="section band"><div class="wrap"><div class="terms" style="margin-top:0">' + "".join(f"<div><b>{a}</b>{b}</div>" for a, b in C.TERMS[lang]) + "</div></div></section>"
-        body += f'<section class="section"><div class="wrap cgrid"><article class="prose">{fill(t["body"], lang)}</article><aside class="side">{side}</aside></div></section>'
+        if kind == "tool": body += calc_html(t, lang)
+        body += f'<section class="section"><div class="wrap cgrid"><article class="prose">{fill(t["body"], lang)}{gloss(t)}</article><aside class="side">{side}</aside></div></section>'
         if faq: body += f'<section class="section band"><div class="wrap"><div class="sec-head"><h2>{u["faq_h"]}</h2></div>{faq_html(faq, lang)}</div></section>'
     elif kind == "faq":
         body += f'<section class="section"><div class="wrap cgrid"><div>{faq_html(faq, lang)}</div><aside class="side">{price_box(lang)}</aside></div></section>'
     elif kind == "guides":
-        body += f'<section class="section"><div class="wrap">{cards(["guide-huileux", "guide-papier"], lang, u["read"])}</div></section>'
+        body += f'<section class="section"><div class="wrap">{cards(C.GUIDE_KEYS, lang, u["read"])}</div></section>'
+    if key == "livraison":
+        body += f'<section class="section"><div class="wrap"><div class="sec-head"><h2>{"Villes et régions desservies" if lang == "fr" else "Cities and regions we serve"}</h2></div>{cards(C.CITY_KEYS, lang)}</div></section>'
     if pg["rel"]:
         body += f'<section class="section"><div class="wrap"><div class="sec-head"><h2>{u["related"]}</h2></div>{cards(pg["rel"], lang)}</div></section>'
     if not noindex: body += ctaband(lang)
@@ -228,7 +259,7 @@ def homepage(lang):
     products = f'<section class="section" id="produits"><span id="grades"></span><div class="wrap"><div class="sec-head"><div class="eyebrow">{h["prod_eyebrow"]}</div><h2>{h["prod_h2"]}</h2><p>{fill(h["prod_p"], lang)}</p></div><div class="prods">{prods}</div><div class="terms">{terms}</div>{photos}</div></section>'
     part = part.replace("<!--PRODUCTS-->", products)
     sectors = f'<section class="section" id="secteurs"><span id="uses"></span><div class="wrap"><div class="sec-head"><div class="eyebrow">{h["sec_eyebrow"]}</div><h2>{h["sec_h2"]}</h2><p>{h["sec_p"]}</p></div>{cards(C.SECTOR_KEYS, lang)}</div></section>'
-    cities = "".join(f"<span>{c}</span>" for c in C.CITIES) + f'<span>{"Partout au Québec (1 000 lb +)" if lang == "fr" else "Anywhere in Québec (1,000 lb +)"}</span>'
+    cities = "".join(f'<a href="{L(k, lang)}">{C.PAGES[k][lang]["short"]}</a>' for k in C.CITY_KEYS) + f'<span>{"Partout au Québec (1 000 lb +)" if lang == "fr" else "Anywhere in Québec (1,000 lb +)"}</span>'
     delivery = f'<section class="section band" id="livraison"><div class="wrap"><div class="sec-head" style="margin-bottom:10px"><div class="eyebrow">{h["del_eyebrow"]}</div><h2>{h["del_h2"]}</h2><p>{h["del_p"]}</p></div><div class="cities">{cities}</div><p style="margin-top:22px"><a class="btn btn-ghost" href="{L("livraison", lang)}">{h["del_link"]}</a></p></div></section>'
     faq = f'<section class="section" id="faq"><div class="wrap"><div class="sec-head"><div class="eyebrow">{h["faq_eyebrow"]}</div><h2>{h["faq_h2"]}</h2></div>{faq_html(C.FAQ[lang][:6], lang)}<p style="margin-top:22px"><a class="btn btn-ghost" href="{L("faq", lang)}">{u["see_all_faq"]}</a></p></div></section>'
     opts = "".join(f"<option>{p[lang][0]}</option>" for p in C.PRODUCTS) + f'<option>{h["f_any"]}</option>'
@@ -283,11 +314,13 @@ def indexable():
     return ["home"] + [k for k, p in C.PAGES.items() if p["kind"] != "thanks"]
 
 def sitemap():
-    out = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">']
+    out = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">']
     for k in indexable():
         for l in LANGS:
             alts = "".join(f'<xhtml:link rel="alternate" hreflang="{x}-CA" href="{C.SITE}{L(k, x)}"/>' for x in LANGS) + f'<xhtml:link rel="alternate" hreflang="x-default" href="{C.SITE}{L(k, "fr")}"/>'
-            out.append(f"<url><loc>{C.SITE}{L(k, l)}</loc><lastmod>{TODAY}</lastmod>{alts}</url>")
+            im = C.IMG_BAG if k == "home" else C.PAGES[k].get("img")
+            imtag = f"<image:image><image:loc>{C.SITE}/img/{im}</image:loc></image:image>" if im else ""
+            out.append(f"<url><loc>{C.SITE}{L(k, l)}</loc><lastmod>{TODAY}</lastmod>{alts}{imtag}</url>")
     out.append("</urlset>")
     open(os.path.join(ROOT, "sitemap.xml"), "w").write("\n".join(out) + "\n")
 

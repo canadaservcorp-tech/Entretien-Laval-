@@ -147,3 +147,22 @@ nav.main a{white-space:nowrap}
 footer{padding-bottom:90px}
 @media(max-width:600px){.wafab{right:14px;bottom:14px;padding:14px}.wafab span{display:none}}
 @media print{.wafab{display:none}}
+.cities a{display:inline-block;text-decoration:none;color:var(--ink);border:1px solid var(--line-2);background:#fff;border-radius:999px;padding:7px 14px;font-size:14px}
+.cities a:hover{border-color:var(--olive);color:var(--olive-deep)}
+.gloss{margin:8px 0 0;display:grid;gap:0}
+.gloss dt{font-family:'Archivo';font-weight:800;font-size:19px;margin-top:22px}
+.gloss dd{margin:6px 0 0;color:var(--ink-soft);line-height:1.6}
+.prose table{width:100%;border-collapse:collapse;margin:14px 0 6px;font-size:15px}
+.prose th,.prose td{border-bottom:1px solid var(--line-2);padding:9px 10px;text-align:left;vertical-align:top}
+.prose thead th{background:var(--paper-2)}
+.calc{background:#fff;border:1px solid var(--line-2);border-radius:14px;padding:24px;display:grid;gap:16px;max-width:760px}
+.calc .row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.calc label{display:block;font-size:14px;font-weight:600;margin-bottom:6px}
+.calc input,.calc select{width:100%;font:inherit;font-size:16px;padding:10px 12px;border:1px solid var(--line-2);border-radius:9px;background:#fff;color:var(--ink)}
+.calc output{display:block;font-family:'Archivo';font-weight:900;font-size:28px}
+.calc .res{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;border-top:1px solid var(--line);padding-top:16px}
+.calc .res div{font-size:13px;color:var(--ink-soft)}
+.calc .note{font-size:14px;color:var(--ink-soft);margin:0}
+.ftop .cityline{margin-top:10px;font-size:13px;line-height:1.9}
+.ftop .cityline a{color:inherit}
+@media(max-width:700px){.calc .row,.calc .res{grid-template-columns:1fr 1fr}}
