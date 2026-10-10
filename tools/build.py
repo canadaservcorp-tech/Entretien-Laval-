@@ -107,7 +107,7 @@ def footer(lang):
 <div><div class="fbrand"><svg aria-hidden="true"><use href="#mark"></use></svg> Chiffons ÉCO — Entretien Laval</div>
 <p class="legal" style="margin-top:14px">{u['foot_tag']}</p>
 <p class="legal" style="margin-top:10px"><a href="{C.TEL}">{C.PHONE}</a><br><a href="mailto:{C.EMAIL}">{C.EMAIL}</a><br><a href="https://www.instagram.com/entretienlaval/" rel="noopener">Instagram @entretienlaval</a></p></div>
-{col(u['products'], ['couleur', 'blancs', 'gros', 'livraison'])}
+{col(u['products'], ['couleur', 'blancs', 'gros', 'livraison', 'apropos'])}
 {col(u['sectors'], ['garage', 'peinture', 'entretien', 'construction', 'restauration', 'industrie'])}
 {col(u['guides'], ['guide-huileux', 'guide-ratine', 'guide-ranger', 'glossaire', 'calculateur', 'faq'])}
 </div>
@@ -332,7 +332,18 @@ def llms():
     lines += [f"- [{C.PAGES[k]['fr']['short'] if k != 'home' else 'Accueil'}]({C.SITE}{L(k, 'fr')})" for k in indexable()]
     lines += ["", "## English"] + [f"- [{C.PAGES[k]['en']['short'] if k != 'home' else 'Home'}]({C.SITE}{L(k, 'en')})" for k in indexable()]
     open(os.path.join(ROOT, "llms.txt"), "w").write("\n".join(lines) + "\n")
-    open(os.path.join(ROOT, "robots.txt"), "w").write(f"User-agent: *\nAllow: /\nDisallow: /merci/\nDisallow: /en/thanks/\n\nSitemap: {C.SITE}/sitemap.xml\n")
+    ai = "".join(f"User-agent: {b}\nAllow: /\n\n" for b in ['GPTBot', 'OAI-SearchBot', 'ChatGPT-User', 'PerplexityBot', 'Perplexity-User', 'ClaudeBot', 'Claude-SearchBot', 'Claude-User', 'Google-Extended', 'Bingbot', 'Applebot-Extended', 'CCBot'])
+    open(os.path.join(ROOT, "robots.txt"), "w").write(f"User-agent: *\nAllow: /\nDisallow: /merci/\nDisallow: /en/thanks/\n\n{ai}Sitemap: {C.SITE}/sitemap.xml\n")
+    full = lines[:]
+    for l in LANGS:
+        full += ["", "## " + ("Pages (français)" if l == "fr" else "Pages (English)")]
+        for k in indexable():
+            if k == "home": continue
+            t = C.PAGES[k][l]
+            full += ["", f"### {t['h1']}", f"URL: {C.SITE}{L(k, l)}", text(fill(t['desc'], l))]
+            full += [f"- Q: {text(fill(q, l))} A: {text(fill(a, l))}" for q, a in t.get("faq", [])]
+        full += ["", "## FAQ"] + [f"- Q: {text(fill(q, l))} A: {text(fill(a, l))}" for q, a in C.FAQ[l]]
+    open(os.path.join(ROOT, "llms-full.txt"), "w").write("\n".join(full) + "\n")
     open(os.path.join(ROOT, f"{C.INDEXNOW_KEY}.txt"), "w").write(C.INDEXNOW_KEY)
 
 CSS = build_css()

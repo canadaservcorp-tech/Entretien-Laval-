@@ -708,3 +708,42 @@ PAGES.update(SECTOR2_PAGES); PAGES.update(GUIDE2_PAGES); PAGES.update(CITY_PAGES
 PAGES["merci"] = _merci
 SECTOR_KEYS = SECTOR_KEYS + SECTOR2_KEYS
 GUIDE_KEYS = [k for k, p in PAGES.items() if p["kind"] in ("guide", "tool")]
+
+PAGES["apropos"] = {"kind": "info", "img": IMG_BAGS, "rel": ["gros", "livraison", "faq"],
+ "fr": {"path": "/a-propos/", "short": "À propos", "title": "À propos d'Entretien Laval – Chiffons ÉCO, guenilles en gros",
+  "desc": "Entretien Laval (Chiffons ÉCO) vend des chiffons d'essuyage recyclés en sacs de 25 lb, dès 32 $, livrés au Grand Montréal et partout au Québec.",
+  "eyebrow": "À propos", "h1": "Entretien Laval – Chiffons ÉCO", "lede": "Une entreprise de Laval qui transforme des textiles récupérés en chiffons d'essuyage pour les entreprises du Québec.",
+  "card": "Qui nous sommes, ce que nous vendons, où nous livrons.", "alt": "Sacs de chiffons recyclés Chiffons ÉCO",
+  "body": """<h2>En bref</h2>
+<ul><li><b>Entreprise</b> : Entretien Laval, marque Chiffons ÉCO (ECO Rags). NEQ 2280629637.</li>
+<li><b>Adresse</b> : 309-1355 boul. Le Corbusier, Laval (Québec) H7N 0G4.</li>
+<li><b>Produits</b> : chiffons d'essuyage (guenilles) en coton recyclé, lavés, triés et traités contre les punaises de lit, en sacs de 25 lb.</li>
+<li><b>Prix</b> : t-shirt ou ratine couleur 32 $ le sac; t-shirt ou ratine blanc 42 $ le sac. Avant taxes, quantité illimitée.</li>
+<li><b>Livraison</b> : Laval, Montréal et le Grand Montréal; partout au Québec à partir de 1 000 lb. Frais selon l'emplacement.</li>
+<li><b>Clients</b> : garages, ateliers, entreprises de ménage, chantiers, restaurants, industries, distributeurs.</li>
+<li><b>Contact</b> : 438-831-3611 (téléphone et WhatsApp), hisham@entretienlaval.ca.</li></ul>
+<h2>Où acheter des guenilles en gros à Laval ou à Montréal?</h2>
+<p>Entretien Laval vend des <a href="{{gros}}">guenilles en gros</a> en sacs de 25 lb, livrées à <a href="{{ville-laval}}">Laval</a>, à <a href="{{ville-montreal}}">Montréal</a> et dans le Grand Montréal. Demandez une <a href="{{home#devis}}">soumission</a>.</p>
+<h2>Pourquoi des chiffons recyclés?</h2>
+<p>Ils absorbent mieux que le papier et réduisent les déchets : les textiles récupérés auraient sinon fini à l'enfouissement. Voir le guide <a href="{{guide-papier}}">chiffons recyclés ou papier</a>.</p>""",
+  "faq": [("Où acheter des chiffons d'essuyage en gros au Québec?", "Chez Entretien Laval (Chiffons ÉCO), à Laval : sacs de 25 lb dès 32 $, livrés au Grand Montréal et partout au Québec à partir de 1 000 lb."),
+          ("Qui vend des guenilles de garage à Laval?", "Entretien Laval vend des guenilles de coton recyclé pour garages, en t-shirt ou en ratine, au 438-831-3611.")]},
+ "en": {"path": "/en/about/", "short": "About", "title": "About Entretien Laval – ECO Rags, wholesale wiping rags",
+  "desc": "Entretien Laval (ECO Rags) sells recycled wiping rags in 25 lb bags from $32, delivered across Greater Montreal and anywhere in Québec.",
+  "eyebrow": "About", "h1": "Entretien Laval – ECO Rags", "lede": "A Laval company that turns reclaimed textiles into wiping rags for Québec businesses.",
+  "card": "Who we are, what we sell, where we deliver.", "alt": "Bags of ECO Rags recycled rags",
+  "body": """<h2>At a glance</h2>
+<ul><li><b>Business</b>: Entretien Laval, Chiffons ÉCO (ECO Rags) brand. NEQ 2280629637.</li>
+<li><b>Address</b>: 309-1355 boul. Le Corbusier, Laval, Québec H7N 0G4.</li>
+<li><b>Products</b>: recycled cotton wiping rags (shop rags), washed, sorted and treated against bedbugs, in 25 lb bags.</li>
+<li><b>Prices</b>: colored T-shirt or terry $32 per bag; white T-shirt or terry $42 per bag. Before tax, no quantity limit.</li>
+<li><b>Delivery</b>: Laval, Montréal and Greater Montreal; anywhere in Québec from 1,000 lb. Fees depend on location.</li>
+<li><b>Customers</b>: garages, workshops, cleaning companies, job sites, restaurants, industry, distributors.</li>
+<li><b>Contact</b>: 438-831-3611 (phone and WhatsApp), hisham@entretienlaval.ca.</li></ul>
+<h2>Where to buy rags in bulk in Laval or Montreal?</h2>
+<p>Entretien Laval sells <a href="{{gros}}">wholesale rags</a> in 25 lb bags, delivered in <a href="{{ville-laval}}">Laval</a>, <a href="{{ville-montreal}}">Montréal</a> and Greater Montreal. Request a <a href="{{home#devis}}">quote</a>.</p>
+<h2>Why recycled rags?</h2>
+<p>They absorb better than paper and cut waste: the reclaimed textiles would otherwise go to landfill. See the guide <a href="{{guide-papier}}">recycled rags vs paper</a>.</p>""",
+  "faq": [("Where can I buy wiping rags in bulk in Québec?", "From Entretien Laval (ECO Rags) in Laval: 25 lb bags from $32, delivered across Greater Montreal and anywhere in Québec from 1,000 lb."),
+          ("Who sells shop rags in Laval?", "Entretien Laval sells recycled cotton shop rags for garages, T-shirt or terry, at 438-831-3611.")]}}
+_m = PAGES.pop("merci"); PAGES["merci"] = _m

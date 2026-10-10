@@ -45,6 +45,7 @@ Contact: 438-831-3611 · hisham@entretienlaval.ca · 309-1355 Boul. Le Corbusier
 - [Sherbrooke](https://entretienlaval.ca/chiffons-guenilles-sherbrooke/)
 - [Trois-Rivières](https://entretienlaval.ca/chiffons-guenilles-trois-rivieres/)
 - [Gatineau](https://entretienlaval.ca/chiffons-guenilles-gatineau/)
+- [À propos](https://entretienlaval.ca/a-propos/)
 
 ## English
 - [Home](https://entretienlaval.ca/en/)
@@ -85,3 +86,4 @@ Contact: 438-831-3611 · hisham@entretienlaval.ca · 309-1355 Boul. Le Corbusier
 - [Sherbrooke](https://entretienlaval.ca/en/rags-sherbrooke/)
 - [Trois-Rivières](https://entretienlaval.ca/en/rags-trois-rivieres/)
 - [Gatineau](https://entretienlaval.ca/en/rags-gatineau/)
+- [About](https://entretienlaval.ca/en/about/)
