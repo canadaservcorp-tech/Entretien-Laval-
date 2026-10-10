@@ -1,0 +1,21 @@
+[build]
+  publish = "."
+
+# Long cache for images and icons (file names change when images change)
+[[headers]]
+  for = "/img/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+# www -> apex (Netlify's primary-domain setting already does this; kept explicit)
+[[redirects]]
+  from = "https://www.entretienlaval.ca/*"
+  to = "https://entretienlaval.ca/:splat"
+  status = 301
+  force = true
