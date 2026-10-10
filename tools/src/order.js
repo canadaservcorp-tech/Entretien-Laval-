@@ -17,31 +17,37 @@ document.addEventListener('DOMContentLoaded', function () {
       return { id: i.getAttribute('data-id'), qty: Math.max(0, Math.floor(Number(i.value) || 0)) };
     }).filter(function (l) { return l.qty > 0; });
   }
-  function totals(ls) {
+  function totals(ls, z) {
     var goods = 0, bags = 0;
     ls.forEach(function (l) { goods += PRICE[l.id].price * l.qty; bags += l.qty; });
-    var del = bags === 0 ? 0 : ((C.free && bags >= C.free) ? 0 : C.fee);
+    var del = (bags === 0 || !z) ? 0 : ((C.free && bags >= C.free) ? 0 : z.fee);
     var sub = goods + del, gst = r2(sub * C.gst), qst = r2(sub * C.qst);
     return { bags: bags, goods: r2(goods), del: r2(del), gst: gst, qst: qst, total: r2(goods + del + gst + qst) };
   }
   function val(name) { var e = form.elements[name]; return e ? String(e.value).trim() : ''; }
   function postal() { var p = val('code_postal').toUpperCase().replace(/\s+/g, ''); return p.length === 6 ? p.slice(0, 3) + ' ' + p.slice(3) : p; }
+  function zone() {
+    var p = postal().replace(/\s+/g, '');
+    for (var i = 0; i < C.zones.length; i++) if (p.indexOf(C.zones[i].prefix) === 0) return C.zones[i];
+    return null;
+  }
   function contact() {
     return { nom: val('nom'), entreprise: val('entreprise'), courriel: val('courriel'), telephone: val('telephone'),
              adresse: val('adresse'), ville: val('ville'), code_postal: postal(), instructions: val('instructions') };
   }
   function problem() {
-    var t = totals(lines()), c = contact();
+    var z = zone(), t = totals(lines(), z), c = contact();
     if (t.bags < 1 || t.bags > C.max) return U.e_bags.replace('{max}', C.max);
     if (!c.nom || !c.courriel || !c.telephone || !c.adresse || !c.ville || !c.code_postal || !form.checkValidity()) return U.e_fields;
-    if (!new RegExp(C.postal).test(c.code_postal)) return U.e_postal;
+    if (!new RegExp(C.postal).test(c.code_postal) || !z) return U.e_postal;
+    if (t.bags < z.min_bags) return U.e_min.replace('{min}', z.min_bags).replace('{zone}', z.name);
     return '';
   }
   function show(msg) { err.textContent = msg; err.hidden = !msg; }
   function render() {
-    var t = totals(lines());
+    var z = zone(), t = totals(lines(), z);
     $('o-goods').textContent = money(t.goods);
-    $('o-del').textContent = t.bags && t.del === 0 ? U.free : money(t.del);
+    $('o-del').textContent = !z ? '–' : (t.bags && t.del === 0 ? U.free : money(t.del));
     $('o-gst').textContent = money(t.gst);
     $('o-qst').textContent = money(t.qst);
     $('o-total').textContent = money(t.total);
@@ -51,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function () {
       .then(function (r) { return r.json(); });
   }
   function record(d) {
-    var t = totals(lines()), c = contact();
+    var z = zone(), t = totals(lines(), z), c = contact();
     var data = { 'form-name': 'commande', langue: C.lang, commande_paypal: d.id, capture: d.capture_id || '', statut: d.capture_status || d.status,
                  montant: d.amount || String(t.total),
                  details: lines().map(function (l) { return l.qty + ' x ' + PRICE[l.id].name; }).join(' | '),
@@ -75,7 +81,7 @@ document.addEventListener('DOMContentLoaded', function () {
     onClick: function () { show(problem()); },
     createOrder: function () {
       return post('create-order', { lang: C.lang, lines: lines(), contact: contact() }).then(function (d) {
-        if (!d.id) { show(d.error === 'postal' ? U.e_postal : U.e_pay); throw new Error(d.error || 'create'); }
+        if (!d.id) { show(d.error === 'postal' ? U.e_postal : d.error === 'min' ? problem() : U.e_pay); throw new Error(d.error || 'create'); }
         return d.id;
       });
     },

@@ -13,10 +13,15 @@ const json = (statusCode, obj) => ({
   body: JSON.stringify(obj),
 });
 
-function totals(lines) {
+function zoneFor(pc) {
+  const p = String(pc || '').toUpperCase().replace(/\s+/g, '');
+  return (CAT.zones || []).find((z) => p.startsWith(z.prefix)) || null;
+}
+
+function totals(lines, zone) {
   let goods = 0, bags = 0;
   for (const l of lines) { goods += CAT.products[l.id].price * l.qty; bags += l.qty; }
-  const del = bags === 0 ? 0 : (CAT.free && bags >= CAT.free ? 0 : CAT.fee);
+  const del = bags === 0 || !zone ? 0 : (CAT.free && bags >= CAT.free ? 0 : zone.fee);
   const sub = goods + del, gst = r2(sub * CAT.gst), qst = r2(sub * CAT.qst);
   return { bags, goods: r2(goods), del: r2(del), gst, qst, total: r2(goods + del + gst + qst) };
 }
@@ -49,7 +54,10 @@ function validate(b) {
   if (!contact.nom || !contact.adresse || !contact.ville || contact.telephone.length < 7) return { error: 'fields' };
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact.courriel)) return { error: 'email' };
   if (!new RegExp(CAT.postal).test(contact.code_postal)) return { error: 'postal' };
-  return { lang, lines, contact };
+  const zone = zoneFor(contact.code_postal);
+  if (!zone) return { error: 'postal' };
+  if (bags < zone.min_bags) return { error: 'min' };
+  return { lang, lines, contact, zone };
 }
 
 function apiBase() {
@@ -69,7 +77,7 @@ async function accessToken() {
 }
 
 function orderBody(v) {
-  const t = totals(v.lines);
+  const t = totals(v.lines, v.zone);
   const items = v.lines.map((l) => ({
     name: (CAT.products[l.id]['name_' + v.lang] + (v.lang === 'fr' ? ' – sac de 25 lb' : ' – 25 lb bag')).slice(0, 127),
     sku: l.id, quantity: String(l.qty), category: 'PHYSICAL_GOODS',
@@ -102,4 +110,4 @@ function orderBody(v) {
   };
 }
 
-module.exports = { CAT, r2, fx, json, totals, validate, apiBase, accessToken, orderBody };
+module.exports = { CAT, r2, fx, json, zoneFor, totals, validate, apiBase, accessToken, orderBody };

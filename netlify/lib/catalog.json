@@ -1,6 +1,5 @@
 {
  "enabled": false,
- "fee": 0,
  "free": null,
  "gst": 0.05,
  "max": 10,
@@ -27,5 +26,21 @@
    "price": 32
   }
  },
- "qst": 0.09975
+ "qst": 0.09975,
+ "zones": [
+  {
+   "fee": 15,
+   "id": "laval",
+   "min_bags": 1,
+   "name": "Laval",
+   "prefix": "H7"
+  },
+  {
+   "fee": 25,
+   "id": "montreal",
+   "min_bags": 2,
+   "name": "Montréal",
+   "prefix": "H"
+  }
+ ]
 }

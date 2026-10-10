@@ -173,7 +173,7 @@ def order_html(lang):
               + fld("code_postal", ou["postal"], ac="postal-code", extra=' maxlength="7" placeholder="H7N 0G4"')
               + fld("instructions", ou["notes"], "textarea", req=False, full=True))
     rows = "".join(f'<tr><th scope="row">{a}</th><td id="{b}">–</td></tr>' for a, b in [(ou["goods"], "o-goods"), (ou["delivery"], "o-del"), (ou["gst"], "o-gst"), (ou["qst"], "o-qst")])
-    cfg = {"lang": lang, "fee": ck["delivery_fee"], "free": ck["free_delivery_from"], "max": ck["max_bags"], "gst": ck["gst"], "qst": ck["qst"],
+    cfg = {"lang": lang, "zones": ck["zones"], "free": ck["free_delivery_from"], "max": ck["max_bags"], "gst": ck["gst"], "qst": ck["qst"],
            "postal": ck["postal_regex"], "fn": "/.netlify/functions", "thanks": L("merci", lang), "ui": ou,
            "products": [{"id": p["id"], "price": p["price"], "name": p[lang][0]} for p in C.PRODUCTS]}
     names = ["langue", "commande_paypal", "capture", "statut", "montant", "details", "totaux", "nom", "entreprise", "courriel", "telephone", "adresse", "ville", "code_postal", "instructions"]
@@ -196,12 +196,12 @@ def order_html(lang):
 def checkout_catalog():
     ck = O.CHECKOUT
     os.makedirs(os.path.join(ROOT, "netlify", "lib"), exist_ok=True)
-    cat = {"enabled": O.ready(), "fee": ck["delivery_fee"] or 0, "free": ck["free_delivery_from"], "max": ck["max_bags"],
+    cat = {"enabled": O.ready(), "zones": ck["zones"], "free": ck["free_delivery_from"], "max": ck["max_bags"],
            "gst": ck["gst"], "qst": ck["qst"], "postal": ck["postal_regex"],
            "products": {p["id"]: {"price": p["price"], "name_fr": p["fr"][0], "name_en": p["en"][0]} for p in C.PRODUCTS}}
     json.dump(cat, open(os.path.join(ROOT, "netlify", "lib", "catalog.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1, sort_keys=True)
     if not O.ready():
-        print("Online ordering OFF: set delivery_fee and paypal_client_id in tools/content_order.py")
+        print("Online ordering OFF: set zones and paypal_client_id in tools/content_order.py")
 
 def price(n, lang): return f"{n},00 $" if lang == "fr" else f"${n}.00"
 
