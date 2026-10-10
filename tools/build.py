@@ -169,7 +169,7 @@ def order_html(lang):
         return f'<div{" class=" + chr(34) + "full" + chr(34) if full else ""}><label for="o-{name}">{label}{star}</label>{tag}</div>'
     fields = (fld("nom", ou["name"], ac="name") + fld("entreprise", ou["company"], req=False, ac="organization")
               + fld("courriel", ou["email"], "email", ac="email") + fld("telephone", ou["phone"], "tel", ac="tel", extra=' minlength="7"')
-              + fld("adresse", ou["address"], ac="street-address", full=True) + fld("ville", ou["city"], ac="address-level2")
+              + fld("adresse", ou["address"], ac="street-address", full=True) + f'<div><label for="o-ville">{ou["city"]} *</label><select id="o-ville" name="ville" required autocomplete="address-level2"><option value="">–</option>' + "".join(f'<option value="{esc(z["name"])}">{esc(z["name"])}</option>' for z in ck["zones"]) + '</select></div>'
               + fld("code_postal", ou["postal"], ac="postal-code", extra=' maxlength="7" placeholder="H7N 0G4"')
               + fld("instructions", ou["notes"], "textarea", req=False, full=True))
     rows = "".join(f'<tr><th scope="row">{a}</th><td id="{b}">–</td></tr>' for a, b in [(ou["goods"], "o-goods"), (ou["delivery"], "o-del"), (ou["gst"], "o-gst"), (ou["qst"], "o-qst")])

@@ -56,6 +56,7 @@ function validate(b) {
   if (!new RegExp(CAT.postal).test(contact.code_postal)) return { error: 'postal' };
   const zone = zoneFor(contact.code_postal);
   if (!zone) return { error: 'postal' };
+  if (contact.ville !== zone.name) return { error: 'city' };
   if (bags < zone.min_bags) return { error: 'min' };
   return { lang, lines, contact, zone };
 }

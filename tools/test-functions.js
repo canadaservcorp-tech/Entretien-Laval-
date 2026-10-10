@@ -42,6 +42,8 @@ const ok=(c,m)=>{console.log((c?'PASS ':'FAIL ')+m); if(!c) process.exitCode=1;}
   ok(r.statusCode===200 && a3.breakdown.shipping.value==='25.00' && a3.value==='102.33','Montréal 2 bags -> 25 delivery, total 102.33');
   r = await co(ev({lang:'fr',lines:[{id:'tshirt-couleur',qty:1}],contact:mtl})); ok(r.statusCode===400 && JSON.parse(r.body).error==='min','Montréal 1 bag rejected (min 2)');
   r = await co(ev({lang:'fr',lines:[{id:'tshirt-couleur',qty:1}],contact})); ok(r.statusCode===200 && sent.purchase_units[0].amount.breakdown.shipping.value==='15.00','Laval 1 bag -> 15 delivery');
+  r = await co(ev({lang:'fr',lines:[{id:'tshirt-couleur',qty:2}],contact:{...contact,ville:'Montréal'}})); ok(r.statusCode===400 && JSON.parse(r.body).error==='city','Montréal city + Laval postal rejected (city)');
+  r = await co(ev({lang:'fr',lines:[{id:'tshirt-couleur',qty:2}],contact:{...mtl,ville:'Laval'}})); ok(r.statusCode===400 && JSON.parse(r.body).error==='city','Laval city + Montréal postal rejected (city)');
   r = await co({httpMethod:'GET'}); ok(r.statusCode===405,'GET rejected');
   r = await cap(ev({orderID:'5O190127TN364715T'})); const d=JSON.parse(r.body); ok(r.statusCode===200 && d.status==='COMPLETED' && d.capture_id==='CAP1','capture ok');
   r = await cap(ev({orderID:'DECLINED1XYZ'})); ok(r.statusCode===422 && JSON.parse(r.body).issue==='INSTRUMENT_DECLINED','declined card -> restart signal');

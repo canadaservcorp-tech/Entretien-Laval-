@@ -40,6 +40,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (t.bags < 1 || t.bags > C.max) return U.e_bags.replace('{max}', C.max);
     if (!c.nom || !c.courriel || !c.telephone || !c.adresse || !c.ville || !c.code_postal || !form.checkValidity()) return U.e_fields;
     if (!new RegExp(C.postal).test(c.code_postal) || !z) return U.e_postal;
+    if (c.ville !== z.name) return U.e_city;
     if (t.bags < z.min_bags) return U.e_min.replace('{min}', z.min_bags).replace('{zone}', z.name);
     return '';
   }
@@ -81,7 +82,7 @@ document.addEventListener('DOMContentLoaded', function () {
     onClick: function () { show(problem()); },
     createOrder: function () {
       return post('create-order', { lang: C.lang, lines: lines(), contact: contact() }).then(function (d) {
-        if (!d.id) { show(d.error === 'postal' ? U.e_postal : d.error === 'min' ? problem() : U.e_pay); throw new Error(d.error || 'create'); }
+        if (!d.id) { show(d.error === 'postal' ? U.e_postal : (d.error === 'min' || d.error === 'city') ? problem() : U.e_pay); throw new Error(d.error || 'create'); }
         return d.id;
       });
     },
