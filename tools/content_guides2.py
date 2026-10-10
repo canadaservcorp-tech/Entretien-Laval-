@@ -66,7 +66,7 @@ P["guide-ranger"] = {"kind": "guide", "img": SHOP, "rel": ["guide-huileux", "gar
           ("Un chiffon de ménage peut-il aller à la poubelle?", "Oui, s'il n'a servi qu'avec de l'eau ou des produits ménagers doux. S'il contient un produit dangereux, suivez les consignes de votre municipalité.")]},
  "en": {"path": "/en/guides/store-wash-reuse-rags/", "short": "Storing, washing and disposing of rags",
   "title": "How to store, wash, reuse and dispose of rags",
-  "desc": "Storing clean and dirty rags, washing them without losing absorbency, knowing when to toss them and where to take them in Québec (ecocentre, specialized pickup).",
+  "desc": "How to store clean and dirty rags, wash them without losing absorbency, know when to toss them and where to take them in Québec (ecocentre, special pickup).",
   "eyebrow": "Guide · care", "h1": "Storing, washing, reusing and disposing of rags",
   "lede": "Stored and washed well, your rags last longer. Disposed of well, they cause neither fires nor pollution.",
   "card": "Storage, washing without softener, and where to dispose of dirty rags.", "alt": "Stored shop rags",

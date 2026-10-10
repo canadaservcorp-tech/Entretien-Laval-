@@ -17,6 +17,23 @@ BIZ_ID = C.SITE + "/#business"
 CUR = ' aria-current="page"'
 HID = '<svg aria-hidden="true"'
 
+# ---------- stable page dates (SEO) ----------
+# Each page keeps its own published/modified date; "modified" only changes when the page content changes,
+# so sitemap <lastmod> and schema dateModified stay trustworthy for Google.
+DATES_FILE = os.path.join(ROOT, "tools", "pagedates.json")
+DATES = json.load(open(DATES_FILE, encoding="utf-8")) if os.path.exists(DATES_FILE) else {}
+D_MOD, D_PUB = "__DATE_MODIFIED__", "__DATE_PUBLISHED__"
+GSC = getattr(C, "GOOGLE_SITE_VERIFICATION", "")
+
+def git_date(relpath, first=False):
+    import subprocess
+    args = ["git", "-C", ROOT, "log", "--format=%as"] + (["--diff-filter=A"] if first else ["-1"]) + ["--", relpath]
+    try:
+        out = subprocess.run(args, capture_output=True, text=True, timeout=20).stdout.split()
+        return (out[-1] if first else out[0]) if out else TODAY
+    except Exception:
+        return TODAY
+
 ROUTES = {"home": {l: C.HOME[l]["path"] for l in LANGS}}
 ROUTES.update({k: {l: p[l]["path"] for l in LANGS} for k, p in C.PAGES.items()})
 PROD = {p["id"]: p for p in C.PRODUCTS}
@@ -52,7 +69,11 @@ def build_css():
     return f"/assets/site.{h}.css"
 
 # ---------- shared blocks ----------
-def head(lang, title, desc, key, ldobj, image="/img/og-chiffons-eco.jpg", noindex=False, ogtype="website"):
+def head(lang, title, desc, key, ldobj, image="/img/og-chiffons-eco.jpg", noindex=False, ogtype="website", image_alt=""):
+    if not noindex and (len(title) > 65 or len(desc) > 160):
+        print(f"SEO length warning [{lang}] {key}: title {len(title)} / desc {len(desc)}")
+    iw, ih = Image.open(os.path.join(ROOT, image.lstrip("/"))).size
+    alt = image_alt or title
     path = L(key, lang); url = C.SITE + path
     alts = "" if noindex else "".join(f'<link rel="alternate" hreflang="{l}-CA" href="{C.SITE}{L(key, l)}">' for l in LANGS) + f'<link rel="alternate" hreflang="x-default" href="{C.SITE}{L(key, "fr")}">'
     other = "en" if lang == "fr" else "fr"
@@ -69,8 +90,10 @@ def head(lang, title, desc, key, ldobj, image="/img/og-chiffons-eco.jpg", noinde
 <meta property="og:type" content="{ogtype}"><meta property="og:site_name" content="Chiffons ÉCO — Entretien Laval">
 <meta property="og:title" content="{esc(title)}"><meta property="og:description" content="{esc(desc)}">
 <meta property="og:url" content="{url}"><meta property="og:locale" content="{lang}_CA"><meta property="og:locale:alternate" content="{other}_CA">
-<meta property="og:image" content="{C.SITE}{image}"><meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta property="og:image" content="{C.SITE}{image}"><meta property="og:image:width" content="{iw}"><meta property="og:image:height" content="{ih}"><meta property="og:image:alt" content="{esc(alt)}">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:image:alt" content="{esc(alt)}">
+{f'<meta name="google-site-verification" content="{GSC}">' if GSC else ''}
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon-48.png" sizes="48x48" type="image/png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/assets/fonts/Archivo-600-900.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/IBMPlexSans-400-700.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="{CSS}">
@@ -169,6 +192,15 @@ def write(path, s):
     out = os.path.join(ROOT, path.lstrip("/"), "index.html") if path.endswith("/") else os.path.join(ROOT, path.lstrip("/"))
     os.makedirs(os.path.dirname(out), exist_ok=True)
     s = re.sub(r"\n{2,}", "\n", s)
+    h = hashlib.sha1(re.sub(r"/assets/site\.[0-9a-f]+\.css", "", s).encode()).hexdigest()
+    rel = os.path.relpath(out, ROOT)
+    rec = DATES.get(path)
+    if not rec:
+        rec = {"published": git_date(rel, first=True), "modified": git_date(rel), "hash": h}
+    elif rec["hash"] != h:
+        rec = {**rec, "modified": TODAY, "hash": h}
+    DATES[path] = rec
+    s = s.replace(D_MOD, rec["modified"]).replace(D_PUB, rec["published"])
     open(out, "w", encoding="utf-8").write(s)
 
 def gloss(t):
@@ -201,9 +233,9 @@ def subpage(key, lang):
     faq = t.get("faq") or (C.FAQ[lang] if kind == "faq" else [])
     graph = [{"@type": "Article" if kind == "guide" else "WebPage", "@id": C.SITE + L(key, lang) + "#page", "url": C.SITE + L(key, lang),
               "name": t["title"], "headline": t["h1"], "description": t["desc"], "inLanguage": f"{lang}-CA",
-              "isPartOf": {"@id": C.SITE + "/#website"}, "about": {"@id": BIZ_ID}, "publisher": {"@id": BIZ_ID}, "dateModified": TODAY}, cj,
+              "isPartOf": {"@id": C.SITE + "/#website"}, "about": {"@id": BIZ_ID}, "publisher": {"@id": BIZ_ID}, "dateModified": D_MOD}, cj,
              {"@type": "LocalBusiness", "@id": BIZ_ID, "name": "Entretien Laval — Chiffons ÉCO", "url": C.SITE + "/", "telephone": "+1-438-831-3611"}]
-    if kind == "guide": graph[0].update({"author": {"@id": BIZ_ID}, "image": C.SITE + "/img/" + pg["img"]})
+    if kind == "guide": graph[0].update({"author": {"@id": BIZ_ID}, "image": C.SITE + "/img/" + pg["img"], "datePublished": D_PUB})
     if faq and kind != "thanks": graph.append(faq_ld(faq, lang))
     for pid in pg.get("products", []): graph.append(product_ld(pid, lang))
     if kind == "city":
@@ -213,6 +245,10 @@ def subpage(key, lang):
                       "offers": [{"@type": "Offer", "price": f"{q['price']}.00", "priceCurrency": "CAD", "itemOffered": {"@type": "Product", "name": f"{q[lang][0]} – {C.PACK[lang][0]}"}} for q in C.PRODUCTS]})
     if t.get("terms"):
         graph.append({"@type": "DefinedTermSet", "name": t["h1"], "inLanguage": f"{lang}-CA", "hasDefinedTerm": [{"@type": "DefinedTerm", "name": a, "description": b} for a, b in t["terms"]]})
+    lst = {"guides": C.GUIDE_KEYS, "hub": [k for k in C.SECTOR_KEYS if k != "gros"]}.get(kind) or (C.CITY_KEYS if key == "livraison" else None)
+    if lst:
+        graph.append({"@type": "ItemList", "itemListElement": [
+            {"@type": "ListItem", "position": i + 1, "url": C.SITE + L(k, lang), "name": C.PAGES[k][lang]["short"]} for i, k in enumerate(lst)]})
     noindex = kind == "thanks"
     media = f'<div class="frame">{img_tag(pg["img"], t["alt"], lazy=False, hi=True)}</div>' if pg.get("img") else ""
     hero_cta = "" if noindex else f'<div class="cta-row"><a class="btn btn-primary" href="{L("home#devis", lang)}">{u["quote"]}</a><a class="btn btn-ghost" href="{C.TEL}">{u["call_btn"]} {C.PHONE}</a></div>'
@@ -241,7 +277,7 @@ def subpage(key, lang):
         body += f'<section class="section"><div class="wrap"><div class="sec-head"><h2>{u["related"]}</h2></div>{cards(pg["rel"], lang)}</div></section>'
     if not noindex: body += ctaband(lang)
     img = "/img/" + pg["img"] if pg.get("img") else "/img/og-chiffons-eco.jpg"
-    doc = head(lang, t["title"], t["desc"], key, {"@context": "https://schema.org", "@graph": graph}, image=img, noindex=noindex,
+    doc = head(lang, t["title"], t["desc"], key, {"@context": "https://schema.org", "@graph": graph}, image=img, noindex=noindex, image_alt=t.get("alt", "") if pg.get("img") else "",
                ogtype="article" if kind == "guide" else "website") + header(lang, key) + ch + hero + body + footer(lang)
     write(L(key, lang), doc)
 
@@ -297,7 +333,7 @@ def homepage(lang):
 <div class="cinfo" style="margin-top:18px">{info}</div></div></div></div></section>"""
     biz = business(lang)
     graph = [biz, {"@type": "WebSite", "@id": C.SITE + "/#website", "url": C.SITE + "/", "name": "Chiffons ÉCO — Entretien Laval", "inLanguage": ["fr-CA", "en-CA"], "publisher": {"@id": BIZ_ID}},
-             {"@type": "WebPage", "@id": C.SITE + h["path"] + "#page", "url": C.SITE + h["path"], "name": h["title"], "description": h["desc"], "inLanguage": f"{lang}-CA", "isPartOf": {"@id": C.SITE + "/#website"}, "about": {"@id": BIZ_ID}, "dateModified": TODAY}]
+             {"@type": "WebPage", "@id": C.SITE + h["path"] + "#page", "url": C.SITE + h["path"], "name": h["title"], "description": h["desc"], "inLanguage": f"{lang}-CA", "isPartOf": {"@id": C.SITE + "/#website"}, "about": {"@id": BIZ_ID}, "dateModified": D_MOD}]
     graph += [product_ld(p["id"], lang) for p in C.PRODUCTS]
     doc = head(lang, h["title"], h["desc"], "home", {"@context": "https://schema.org", "@graph": graph}) + header(lang, "home") + part + sectors + delivery + faq + devis + footer(lang)
     write(h["path"], doc)
@@ -322,7 +358,7 @@ def sitemap():
             alts = "".join(f'<xhtml:link rel="alternate" hreflang="{x}-CA" href="{C.SITE}{L(k, x)}"/>' for x in LANGS) + f'<xhtml:link rel="alternate" hreflang="x-default" href="{C.SITE}{L(k, "fr")}"/>'
             im = C.IMG_BAG if k == "home" else C.PAGES[k].get("img")
             imtag = f"<image:image><image:loc>{C.SITE}/img/{im}</image:loc></image:image>" if im else ""
-            out.append(f"<url><loc>{C.SITE}{L(k, l)}</loc><lastmod>{TODAY}</lastmod>{alts}{imtag}</url>")
+            out.append(f"<url><loc>{C.SITE}{L(k, l)}</loc><lastmod>{DATES.get(L(k, l), {}).get('modified', TODAY)}</lastmod>{alts}{imtag}</url>")
     out.append("</urlset>")
     open(os.path.join(ROOT, "sitemap.xml"), "w").write("\n".join(out) + "\n")
 
@@ -348,9 +384,44 @@ def llms():
     open(os.path.join(ROOT, "llms-full.txt"), "w").write("\n".join(full) + "\n")
     open(os.path.join(ROOT, f"{C.INDEXNOW_KEY}.txt"), "w").write(C.INDEXNOW_KEY)
 
+# ---------- icons, Merchant Center feeds ----------
+def icons():
+    logo = Image.open(os.path.join(ROOT, "img", "logo-chiffons-eco-512.png")).convert("RGBA")
+    logo.resize((180, 180), Image.LANCZOS).save(os.path.join(ROOT, "apple-touch-icon.png"))
+    logo.resize((48, 48), Image.LANCZOS).save(os.path.join(ROOT, "favicon-48.png"))
+
+# Only products with a REAL photo of that product go in the feed (Google rejects mismatched images).
+FEED_IMG = {"tshirt-couleur": C.IMG_BAG, "ratine-couleur": C.IMG_BAG}  # add the white rags once a white-bag photo exists
+
+def merchant_feed(lang):
+    ptype = "Chiffons d'essuyage recyclés" if lang == "fr" else "Recycled wiping rags"
+    items = []
+    for p in C.PRODUCTS:
+        src = FEED_IMG.get(p["id"])
+        if not src:
+            continue
+        jpg = os.path.splitext(src)[0] + "-feed.jpg"
+        if not os.path.exists(os.path.join(ROOT, "img", jpg)):
+            Image.open(os.path.join(ROOT, "img", src)).convert("RGB").save(os.path.join(ROOT, "img", jpg), "JPEG", quality=88)
+        name, _, d = p[lang]
+        items.append(
+            f"<item><g:id>{p['id']}</g:id><title>{esc(name + ' – ' + C.PACK[lang][0])}</title>"
+            f"<description>{esc(d)}</description><link>{C.SITE}{L(p['page'], lang)}</link>"
+            f"<g:image_link>{C.SITE}/img/{jpg}</g:image_link><g:price>{p['price']}.00 CAD</g:price>"
+            f"<g:availability>in_stock</g:availability><g:condition>new</g:condition><g:brand>Chiffons ÉCO</g:brand>"
+            f"<g:identifier_exists>no</g:identifier_exists><g:shipping_weight>25 lb</g:shipping_weight>"
+            f"<g:product_type>{esc(ptype)}</g:product_type></item>")
+    xml = ('<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0" xmlns:g="http://base.google.com/ns/1.0"><channel>'
+           f"<title>Chiffons ÉCO ({lang})</title><link>{C.SITE}{L('home', lang)}</link><description>Chiffons ÉCO</description>"
+           + "".join(items) + "</channel></rss>\n")
+    open(os.path.join(ROOT, f"merchant-feed-{lang}.xml"), "w", encoding="utf-8").write(xml)
+
 CSS = build_css()
+icons()
 for l in LANGS:
     homepage(l)
     for k in C.PAGES: subpage(k, l)
 notfound(); sitemap(); llms()
+merchant_feed("fr"); merchant_feed("en")
+json.dump(DATES, open(DATES_FILE, "w", encoding="utf-8"), ensure_ascii=False, indent=1, sort_keys=True)
 print("built", 2 * (1 + len(C.PAGES)), "pages + 404;", CSS)

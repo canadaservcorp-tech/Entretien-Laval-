@@ -101,7 +101,7 @@ Guenilles recyclées pour garages et mécanique : huile, graisse, liquides. Dès
 
 ### Chiffons pour la peinture, la teinture et la finition
 URL: https://entretienlaval.ca/chiffons-peinture-finition/
-Chiffons de coton blanc recyclé sans transfert de couleur pour peintres, ébénistes et finition : teinture, vernis, huile. Sacs de 25 lb à 42 $, livrés au Québec.
+Chiffons de coton blanc recyclé sans transfert de couleur pour peintres et ébénistes : teinture, vernis, huile. Sacs de 25 lb à 42 $, livrés au Québec.
 - Q: T-shirt ou ratine pour la teinture? A: Le t-shirt blanc pour appliquer et essuyer la teinture (fin et régulier), la ratine blanche pour les gros surplus et le nettoyage.
 - Q: Les chiffons couleur peuvent-ils tacher le bois? A: Avec des solvants, un tissu teint peut déteindre. Pour la finition, prenez du blanc.
 - Q: Comment jeter un chiffon de teinture à l'huile? A: Faites-le sécher à plat à l'extérieur ou mettez-le dans un contenant métallique fermé avec de l'eau, puis apportez-le à l'écocentre comme résidu domestique dangereux (RDD).
@@ -115,7 +115,7 @@ Chiffons de nettoyage en coton recyclé pour entreprises d'entretien ménager, c
 
 ### Guenilles pour la construction et les chantiers
 URL: https://entretienlaval.ca/chiffons-construction-chantier/
-Guenilles recyclées pour entrepreneurs, plombiers, électriciens et chantiers : outils, colle, calfeutrage, nettoyage. Sacs de 25 lb dès 32 $, livrés à votre adresse.
+Guenilles recyclées pour entrepreneurs, plombiers, électriciens et chantiers : outils, colle, calfeutrage. Sacs de 25 lb dès 32 $, livrés sur place.
 - Q: Pouvez-vous livrer directement au chantier? A: Oui, à l'adresse de votre choix, selon nos conditions de livraison.
 - Q: Quel chiffon pour le silicone et le calfeutrage? A: Le t-shirt couleur : mince, souple et économique.
 - Q: Facturez-vous les entrepreneurs? A: Oui, avec TPS et TVQ, sur facture d'entreprise enregistrée.
@@ -129,14 +129,14 @@ Chiffons de coton recyclé pour l'entretien des restaurants : graisse, hottes, p
 
 ### Chiffons industriels et chiffons d'imprimerie
 URL: https://entretienlaval.ca/chiffons-industriels-imprimerie/
-Chiffons industriels en coton recyclé pour usines, imprimeries, usinage et maintenance : encre, huile, solvants. Quantité illimitée, livraison partout au Québec.
+Chiffons industriels en coton recyclé pour usines, imprimeries et maintenance : encre, huile, solvants. Quantité illimitée, livraison partout au Québec.
 - Q: Quel chiffon pour nettoyer une presse d'imprimerie? A: Le t-shirt blanc : il ne déteint pas avec les solvants de nettoyage.
 - Q: Pouvez-vous livrer chaque semaine? A: Oui, nous planifions les livraisons régulières selon votre consommation.
 - Q: Livrez-vous hors du Grand Montréal? A: Oui, ailleurs au Québec à partir de 1 000 lb par livraison.
 
 ### Guenilles en gros et chiffons recyclés pour distributeurs
 URL: https://entretienlaval.ca/guenilles-en-gros/
-Guenilles et chiffons d'essuyage recyclés en gros pour distributeurs sanitaires, quincailleries et fournisseurs industriels. Quantité illimitée, livraison au Québec.
+Guenilles en gros et chiffons d'essuyage recyclés pour distributeurs sanitaires, quincailleries et fournisseurs. Quantité illimitée, livraison au Québec.
 - Q: Offrez-vous des prix de volume? A: Demandez une soumission avec vos quantités prévues : nous vous répondons avec un prix livré.
 - Q: Puis-je mélanger les produits dans une livraison? A: Oui, le minimum de 1 000 lb s'applique au total de la livraison.
 - Q: Livrez-vous en région? A: Oui, partout au Québec à partir de 1 000 lb, avec des frais selon la distance.
@@ -218,7 +218,7 @@ Guenilles recyclées pour fermes et concessionnaires de machinerie agricole : gr
 
 ### Chiffons pour l'usinage et la fabrication
 URL: https://entretienlaval.ca/chiffons-usinage-atelier-machinerie/
-Chiffons recyclés pour ateliers d'usinage, soudure et fabrication métallique : huile de coupe, liquide de refroidissement, entretien des machines. Dès 32 $ le sac.
+Chiffons recyclés pour ateliers d'usinage, soudure et fabrication métallique : huile de coupe, refroidissement, entretien des machines. Dès 32 $ le sac.
 - Q: Combien de sacs par mois pour un atelier? A: Cela dépend du nombre de postes et du type de travail. Notre calculateur vous aide à estimer votre budget à partir de votre consommation.
 - Q: Livrez-vous les zones industrielles? A: Oui, à l'adresse de votre entreprise. Hors Laval et Montréal, le minimum est de 1 000 lb par livraison.
 
@@ -496,7 +496,7 @@ Terry (towel cloth) or T-shirt jersey, white or colored: absorbency, softness an
 
 ### Storing, washing, reusing and disposing of rags
 URL: https://entretienlaval.ca/en/guides/store-wash-reuse-rags/
-Storing clean and dirty rags, washing them without losing absorbency, knowing when to toss them and where to take them in Québec (ecocentre, specialized pickup).
+How to store clean and dirty rags, wash them without losing absorbency, know when to toss them and where to take them in Québec (ecocentre, special pickup).
 - Q: Why avoid fabric softener? A: It coats the fibers and stops cotton from absorbing, so your rags wipe less well.
 - Q: Can a cleaning rag go in the trash? A: Yes, if it was only used with water or mild cleaning products. If it holds a hazardous product, follow your municipality's rules.
 

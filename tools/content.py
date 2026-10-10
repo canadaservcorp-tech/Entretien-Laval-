@@ -7,6 +7,7 @@ EMAIL = "hisham@entretienlaval.ca"
 WA = {"fr": "https://wa.me/14388313611?text=Bonjour%2C%20je%20vous%20%C3%A9cris%20au%20sujet%20des%20Chiffons%20%C3%89CO",
       "en": "https://wa.me/14388313611?text=Hello%2C%20I%27m%20writing%20about%20ECO%20Rags"}
 PACK = {"fr": ("sac de 25 lb", "sacs de 25 lb"), "en": ("25 lb bag", "25 lb bags")}
+GOOGLE_SITE_VERIFICATION = ""  # paste the token from Search Console > Settings > Ownership > HTML tag
 INDEXNOW_KEY = "7c1e4b9a2d6f4e0b8a35c9d1f2e7b604"
 
 PRODUCTS = [
@@ -100,8 +101,8 @@ FAQ = {
 }
 
 HOME = {
- "fr": {"path": "/", "title": "Chiffons d'essuyage recyclés à Laval – guenilles 25 lb | Chiffons ÉCO",
-        "desc": "Chiffons d'essuyage et guenilles en coton recyclé, lavés et traités anti-punaises, dès 32 $ le sac de 25 lb. Triés à Laval, livrés au Grand Montréal et au Québec.",
+ "fr": {"path": "/", "title": "Guenilles et chiffons d'essuyage recyclés à Laval | Chiffons ÉCO",
+        "desc": "Guenilles et chiffons d'essuyage en coton recyclé, lavés et traités anti-punaises, dès 32 $ le sac de 25 lb. Triés à Laval, livrés partout au Québec.",
         "prod_eyebrow": "Nos chiffons · 4 produits", "prod_h2": "T-shirt ou ratine, blanc ou couleur.",
         "prod_p": "Tous lavés, triés et traités contre les punaises de lit, en [packs]. Échantillons sur demande.",
         "photo_alt": ["Sacs de 25 lb de chiffons recyclés couleur, scellés", "Sac de chiffons t-shirt couleur de 25 lb"],
@@ -200,7 +201,7 @@ PAGES["garage"] = {"kind": "sector", "img": IMG_BAG, "rel": ["couleur", "guide-h
 PAGES["peinture"] = {"kind": "sector", "img": IMG_SHOP, "rel": ["blancs", "guide-huileux", "construction"],
  "fr": {"path": "/chiffons-peinture-finition/", "short": "Peinture et finition",
   "title": "Chiffons blancs pour peintres, teinture et vernis – Québec",
-  "desc": "Chiffons de coton blanc recyclé sans transfert de couleur pour peintres, ébénistes et finition : teinture, vernis, huile. Sacs de 25 lb à 42 $, livrés au Québec.",
+  "desc": "Chiffons de coton blanc recyclé sans transfert de couleur pour peintres et ébénistes : teinture, vernis, huile. Sacs de 25 lb à 42 $, livrés au Québec.",
   "eyebrow": "Peintres · ébénistes · finition", "h1": "Chiffons pour la peinture, la teinture et la finition",
   "lede": "Du coton blanc trié, sans transfert de couleur, pour appliquer et essuyer la teinture, l'huile et le vernis sans marquer vos surfaces.",
   "card": "Teinture, vernis et retouches : le coton blanc ne transfère pas de couleur.",
@@ -286,7 +287,7 @@ PAGES["entretien"] = {"kind": "sector", "img": IMG_BAGS, "rel": ["gros", "guide-
 PAGES["construction"] = {"kind": "sector", "img": IMG_BALE, "rel": ["couleur", "gros", "peinture"],
  "fr": {"path": "/chiffons-construction-chantier/", "short": "Construction et chantiers",
   "title": "Guenilles pour chantiers de construction – livraison au Québec",
-  "desc": "Guenilles recyclées pour entrepreneurs, plombiers, électriciens et chantiers : outils, colle, calfeutrage, nettoyage. Sacs de 25 lb dès 32 $, livrés à votre adresse.",
+  "desc": "Guenilles recyclées pour entrepreneurs, plombiers, électriciens et chantiers : outils, colle, calfeutrage. Sacs de 25 lb dès 32 $, livrés sur place.",
   "eyebrow": "Entrepreneurs · plomberie · électricité", "h1": "Guenilles pour la construction et les chantiers",
   "lede": "Des chiffons solides et bon marché pour les outils, la colle, le calfeutrage, la plomberie et le ménage de fin de chantier, livrés en [packs].",
   "card": "Outils, colle, calfeutrage et ménage de fin de chantier, en gros volumes.",
@@ -368,7 +369,7 @@ PAGES["restauration"] = {"kind": "sector", "img": IMG_TEXT, "rel": ["entretien",
 PAGES["industrie"] = {"kind": "sector", "img": IMG_BALE, "rel": ["gros", "blancs", "guide-huileux"],
  "fr": {"path": "/chiffons-industriels-imprimerie/", "short": "Industrie et imprimerie",
   "title": "Chiffons industriels et chiffons d'imprimerie – Québec",
-  "desc": "Chiffons industriels en coton recyclé pour usines, imprimeries, usinage et maintenance : encre, huile, solvants. Quantité illimitée, livraison partout au Québec.",
+  "desc": "Chiffons industriels en coton recyclé pour usines, imprimeries et maintenance : encre, huile, solvants. Quantité illimitée, livraison partout au Québec.",
   "eyebrow": "Usines · imprimeries · maintenance", "h1": "Chiffons industriels et chiffons d'imprimerie",
   "lede": "Pour l'encre, l'huile de coupe, les solvants et l'entretien des machines : du coton recyclé en [packs], en quantité illimitée.",
   "card": "Encre, huile de coupe, solvants et entretien des machines, en quantité illimitée.",
@@ -409,7 +410,7 @@ PAGES["industrie"] = {"kind": "sector", "img": IMG_BALE, "rel": ["gros", "blancs
 PAGES["gros"] = {"kind": "sector", "img": IMG_BAGS, "rel": ["livraison", "industrie", "entretien"],
  "fr": {"path": "/guenilles-en-gros/", "short": "Guenilles en gros",
   "title": "Guenilles en gros et chiffons recyclés pour distributeurs",
-  "desc": "Guenilles et chiffons d'essuyage recyclés en gros pour distributeurs sanitaires, quincailleries et fournisseurs industriels. Quantité illimitée, livraison au Québec.",
+  "desc": "Guenilles en gros et chiffons d'essuyage recyclés pour distributeurs sanitaires, quincailleries et fournisseurs. Quantité illimitée, livraison au Québec.",
   "eyebrow": "Distributeurs · revendeurs · gros volumes", "h1": "Guenilles en gros et chiffons recyclés pour distributeurs",
   "lede": "Un fournisseur québécois de chiffons d'essuyage recyclés : 4 produits, quantité illimitée, prix clairs et livraison partout au Québec.",
   "card": "Distributeurs sanitaires, quincailleries, fournisseurs : quantité illimitée.",
@@ -449,7 +450,7 @@ PAGES["gros"] = {"kind": "sector", "img": IMG_BAGS, "rel": ["livraison", "indust
 
 PAGES["blancs"] = {"kind": "product", "img": IMG_SHOP, "products": ["tshirt-blanc", "ratine-blanc"], "rel": ["peinture", "couleur", "industrie"],
  "fr": {"path": "/chiffons-blancs-recycles/", "short": "Chiffons blancs",
-  "title": "Chiffons blancs recyclés – t-shirt et ratine, 25 lb | Chiffons ÉCO",
+  "title": "Chiffons blancs recyclés, t-shirt et ratine 25 lb | Chiffons ÉCO",
   "desc": "Chiffons d'essuyage blancs en coton recyclé, t-shirt ou ratine, sans transfert de couleur. 42 $ le sac de 25 lb avant taxes. Laval, Montréal, Québec.",
   "eyebrow": "Produit · blanc", "h1": "Chiffons blancs recyclés : t-shirt et ratine",
   "lede": "Coton blanc trié, sans transfert de couleur, pour la peinture, la finition, l'imprimerie et les surfaces délicates. 42 $ le [pack].",
@@ -488,7 +489,7 @@ PAGES["blancs"] = {"kind": "product", "img": IMG_SHOP, "products": ["tshirt-blan
 
 PAGES["couleur"] = {"kind": "product", "img": IMG_BAG, "products": ["tshirt-couleur", "ratine-couleur"], "rel": ["garage", "construction", "blancs"],
  "fr": {"path": "/chiffons-couleur-recycles/", "short": "Chiffons couleur",
-  "title": "Chiffons couleur recyclés – t-shirt et ratine, 25 lb | Chiffons ÉCO",
+  "title": "Chiffons couleur recyclés, t-shirt et ratine 25 lb | Chiffons ÉCO",
   "desc": "Chiffons d'essuyage couleur en coton recyclé, t-shirt ou ratine, pour garages, ateliers et chantiers. 32 $ le sac de 25 lb avant taxes. Livraison au Québec.",
   "eyebrow": "Produit · couleur", "h1": "Chiffons couleur recyclés : t-shirt et ratine",
   "lede": "Le choix économique pour l'essuyage de tous les jours : garages, ateliers, chantiers, entretien. 32 $ le [pack].",
@@ -577,7 +578,7 @@ PAGES["livraison"] = {"kind": "info", "img": IMG_BAGS, "rel": ["gros", "faq", "c
 }
 
 PAGES["faq"] = {"kind": "faq", "img": None, "rel": ["livraison", "gros", "guides"],
- "fr": {"path": "/faq/", "short": "FAQ", "title": "FAQ – chiffons d'essuyage recyclés, prix et livraison | Chiffons ÉCO",
+ "fr": {"path": "/faq/", "short": "FAQ", "title": "FAQ chiffons d'essuyage recyclés : prix, livraison | Chiffons ÉCO",
   "desc": "Prix, produits, livraison, minimum de commande, échantillons et sécurité : toutes les réponses sur nos chiffons d'essuyage recyclés de Laval.",
   "eyebrow": "FAQ", "h1": "Questions fréquentes sur nos chiffons", "lede": "Prix, produits, livraison et commandes.",
   "card": "Prix, livraison, minimum, échantillons, sécurité.", "body": ""},

@@ -1,0 +1,26 @@
+name: IndexNow ping
+on:
+  push:
+    branches: [main]
+    paths: ['**/*.html']
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - name: Wait for Netlify deploy
+        run: sleep 120
+      - name: Send changed URLs to IndexNow
+        run: |
+          KEY=$(grep -oP 'INDEXNOW_KEY = "\K[0-9a-f]+' tools/content.py)
+          URLS=$(git diff --name-only HEAD~1 HEAD -- '*.html' \
+            | grep -v -E '^(404\.html|tools/|merci/|en/thanks/)' \
+            | sed -e 's#index\.html$##' -e 's#^#https://entretienlaval.ca/#' \
+            | python3 -c "import sys,json;print(json.dumps([l.strip() for l in sys.stdin if l.strip()]))")
+          if [ "$URLS" = "[]" ]; then echo "No page changes"; exit 0; fi
+          curl -sS -X POST https://api.indexnow.org/indexnow \
+            -H 'Content-Type: application/json; charset=utf-8' \
+            -d "{\"host\":\"entretienlaval.ca\",\"key\":\"$KEY\",\"keyLocation\":\"https://entretienlaval.ca/$KEY.txt\",\"urlList\":$URLS}" \
+            -w '\nHTTP %{http_code}\n'
