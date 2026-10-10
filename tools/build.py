@@ -165,8 +165,8 @@ def order_html(lang):
     qty = "".join(f'<div><label for="o-{p["id"]}">{p[lang][0]} – {price(p["price"], lang)}</label><input id="o-{p["id"]}" class="oqty" data-id="{p["id"]}" type="number" min="0" max="{ck["max_bags"]}" step="1" value="0" inputmode="numeric"></div>' for p in C.PRODUCTS)
     def fld(name, label, typ="text", req=True, ac="", full=False, extra=""):
         star = " *" if req else ""
-        tag = f'<textarea id="o-{name}" name="{name}" maxlength="500"></textarea>' if typ == "textarea" else f'<input id="o-{name}" name="{name}" type="{typ}"{" required" if req else ""}{f' autocomplete="{ac}"' if ac else ""}{extra}>'
-        return f'<div{" class=\"full\"" if full else ""}><label for="o-{name}">{label}{star}</label>{tag}</div>'
+        tag = f'<textarea id="o-{name}" name="{name}" maxlength="500"></textarea>' if typ == "textarea" else f'<input id="o-{name}" name="{name}" type="{typ}"{" required" if req else ""}{" autocomplete=" + chr(34) + ac + chr(34) if ac else ""}{extra}>'
+        return f'<div{" class=" + chr(34) + "full" + chr(34) if full else ""}><label for="o-{name}">{label}{star}</label>{tag}</div>'
     fields = (fld("nom", ou["name"], ac="name") + fld("entreprise", ou["company"], req=False, ac="organization")
               + fld("courriel", ou["email"], "email", ac="email") + fld("telephone", ou["phone"], "tel", ac="tel", extra=' minlength="7"')
               + fld("adresse", ou["address"], ac="street-address", full=True) + fld("ville", ou["city"], ac="address-level2")
@@ -190,7 +190,7 @@ def order_html(lang):
 <div id="paypal-buttons" aria-label="{ou["pay_h"]}"></div>
 </form>{hidden}</div></section>
 <script src="{esc(sdk)}" defer></script>
-<script>window.ORDER_CFG={json.dumps(cfg, ensure_ascii=False).replace("</", "<\\/")};</script>
+<script>window.ORDER_CFG={json.dumps(cfg, ensure_ascii=False).replace("</", "<" + chr(92) + "/")};</script>
 <script>{rd("order.js")}</script>"""
 
 def checkout_catalog():
