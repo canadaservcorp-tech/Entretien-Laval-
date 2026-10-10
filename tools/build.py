@@ -89,7 +89,7 @@ def header(lang, key):
 <a class="brand" href="{L('home', lang)}"><svg aria-hidden="true"><use href="#mark"></use></svg><span>Chiffons ÉCO<small>ECO RAGS · ENTRETIEN LAVAL</small></span></a>
 <nav class="main" aria-label="{u['nav_label']}">{links}{devis}</nav>
 <div class="tools">
-<a class="langsw" href="{L(key, other)}" hreflang="{other}-CA" lang="{other}-CA" aria-label="{u['lang_name']}">{other.upper()}</a>
+<a class="langsw" href="{L(key, other)}" hreflang="{other}-CA" lang="{other}-CA" title="{u['lang_name']}">{other.upper()}</a>
 <a class="call" href="{C.TEL}" aria-label="{u['call']}">{ICON['phone'].replace('<svg', HID, 1)}<span>{C.PHONE}</span></a>
 <details class="mnav"><summary aria-label="{u['menu']}"><span></span></summary><nav aria-label="{u['menu']}">{links}<a class="btn btn-primary" href="{L('home#devis', lang)}">{u['quote']}</a></nav></details>
 </div>
