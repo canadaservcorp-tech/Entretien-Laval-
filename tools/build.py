@@ -141,6 +141,7 @@ def footer(lang):
 </footer>
 <a class="wafab" href="{C.WA[lang]}" target="_blank" rel="noopener" aria-label="{u['wa_fab']}">{ICON['wa'].replace('<svg', HID, 1)}<span>WhatsApp</span></a>
 <script>document.querySelectorAll('.mnav a').forEach(function(a){{a.addEventListener('click',function(){{a.closest('details').removeAttribute('open')}})}});</script>
+<script async src="https://studio-sur-mesure-production.up.railway.app/t.js"></script>
 </body>
 </html>
 """
