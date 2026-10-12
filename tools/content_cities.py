@@ -106,7 +106,7 @@ def _page(d):
 <li><a href="{{{{blancs}}}}">T-shirt ou ratine blanc</a> : 42 $ le [pack], sans transfert de couleur, pour la finition et la peinture.</li></ul>
 <p>Prix avant taxes (TPS et TVQ en sus), quantité illimitée. Commande confirmée et payée une semaine avant la livraison.</p>
 <h2>Commander</h2>
-<p>Demandez une <a href="{{{{home#devis}}}}">soumission en ligne</a>, appelez le 438-831-3611 ou écrivez à info@entretienlaval.ca. Indiquez votre adresse {a_fr} et la quantité souhaitée.</p>""" if lang == "fr" else f"""<h2>Delivery {a_en}</h2>
+<p>Demandez une <a href="{{{{home#devis}}}}">soumission en ligne</a> ou écrivez à info@entretienlaval.ca. Indiquez votre adresse {a_fr} et la quantité souhaitée.</p>""" if lang == "fr" else f"""<h2>Delivery {a_en}</h2>
 <p>{d['intro_en']}</p>
 <p>{terms_en}</p>
 <h2>Areas we serve</h2>
@@ -118,7 +118,7 @@ def _page(d):
 <li><a href="{{{{blancs}}}}">White T-shirt or terry</a>: $42 per [pack], no color transfer, for finishing and painting.</li></ul>
 <p>Prices before tax (GST and QST extra), no quantity limit. Orders are confirmed and paid one week before delivery.</p>
 <h2>How to order</h2>
-<p>Request a <a href="{{{{home#devis}}}}">quote online</a>, call 438-831-3611 or email info@entretienlaval.ca. Include your address {a_en} and the quantity you need.</p>""")
+<p>Request a <a href="{{{{home#devis}}}}">quote online</a> or email info@entretienlaval.ca. Include your address {a_en} and the quantity you need.</p>""")
     lab_fr = "Guenilles et chiffons " + ("à " + n if not n.startswith("la ") else "sur " + n)
     return {"kind": "city", "img": d["img"], "rel": d["rel"], "city": n, "city_en": ne, "core": core,
      "fr": {"path": d["fr"], "short": n[0].upper() + n[1:],

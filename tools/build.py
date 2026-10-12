@@ -114,7 +114,7 @@ def header(lang, key):
 <nav class="main" aria-label="{u['nav_label']}">{links}{devis}</nav>
 <div class="tools">
 <a class="langsw" href="{L(key, other)}" hreflang="{other}-CA" lang="{other}-CA" title="{u['lang_name']}">{other.upper()}</a>
-<a class="call" href="{C.TEL}" aria-label="{u['call']}">{ICON['phone'].replace('<svg', HID, 1)}<span>{C.PHONE}</span></a>
+<a class="call" href="{L("home#devis", lang)}">{ICON['arrow'].replace('<svg', HID, 1)}<span>{u["quote"]}</span></a>
 <details class="mnav"><summary aria-label="{u['menu']}"><span></span></summary><nav aria-label="{u['menu']}">{links}<a class="btn btn-primary" href="{L('home#devis', lang)}">{u['quote']}</a></nav></details>
 </div>
 </div>
@@ -130,7 +130,7 @@ def footer(lang):
 <div class="fcols">
 <div><div class="fbrand"><svg aria-hidden="true"><use href="#mark"></use></svg> Chiffons ÉCO — Entretien Laval</div>
 <p class="legal" style="margin-top:14px">{u['foot_tag']}</p>
-<p class="legal" style="margin-top:10px"><a href="{C.TEL}">{C.PHONE}</a><br><a href="mailto:{C.EMAIL}">{C.EMAIL}</a><br><a href="https://www.instagram.com/entretienlaval/" rel="noopener">Instagram @entretienlaval</a></p></div>
+<p class="legal" style="margin-top:10px"><a href="mailto:{C.EMAIL}">{C.EMAIL}</a><br><a href="https://www.instagram.com/entretienlaval/" rel="noopener">Instagram @entretienlaval</a></p></div>
 {col(u['products'], (['commander'] if 'commander' in C.PAGES else []) + ['couleur', 'blancs', 'gros', 'livraison', 'apropos'])}
 {col(u['sectors'], [k for k in C.SECTOR_KEYS if k != 'gros'] + ['secteurs'])}
 {col(u['guides'], ['guide-huileux', 'guide-papier', 'guide-ratine', 'guide-ranger', 'glossaire', 'calculateur', 'faq'])}
@@ -154,7 +154,7 @@ def faq_ld(items, lang):
 def price_box(lang, ids=None):
     u = C.UI[lang]
     rows = "".join(f'<div class="pline"><span>{PROD[i][lang][0]}</span><b>{price(PROD[i]["price"], lang)}</b></div>' for i in (ids or [p["id"] for p in C.PRODUCTS]))
-    return f'<div class="pbox"><h2>{fill(u["prices_h"], lang)}</h2>{rows}<p class="small">{u["prices_note"]}</p>{order_btn(lang)}<a class="btn btn-primary" href="{L("home#devis", lang)}">{u["quote"]}</a><a class="btn btn-ghost" href="{C.TEL}">{u["call_btn"]} {C.PHONE}</a></div>'
+    return f'<div class="pbox"><h2>{fill(u["prices_h"], lang)}</h2>{rows}<p class="small">{u["prices_note"]}</p>{order_btn(lang)}<a class="btn btn-primary" href="{L("home#devis", lang)}">{u["quote"]}</a><a class="btn btn-ghost" href="mailto:{C.EMAIL}">{C.EMAIL}</a></div>'
 
 def order_btn(lang):
     if "commander" not in C.PAGES: return ""
@@ -211,7 +211,7 @@ def cards(keys, lang, more=None):
 
 def ctaband(lang):
     u = C.UI[lang]
-    return f'<section class="ctaband"><div class="wrap"><div><h2>{u["cta_h"]}</h2><p>{u["cta_p"]}</p></div><div class="cta-row" style="margin-top:0"><a class="btn btn-primary" href="{L("home#devis", lang)}">{u["quote"]}</a><a class="btn btn-ghost" href="{C.TEL}">{u["call_btn"]} {C.PHONE}</a></div></div></section>'
+    return f'<section class="ctaband"><div class="wrap"><div><h2>{u["cta_h"]}</h2><p>{u["cta_p"]}</p></div><div class="cta-row" style="margin-top:0"><a class="btn btn-primary" href="{L("home#devis", lang)}">{u["quote"]}</a><a class="btn btn-ghost" href="mailto:{C.EMAIL}">{C.EMAIL}</a></div></div></section>'
 
 def product_ld(pid, lang):
     p = PROD[pid]; name, _, d = p[lang]
@@ -283,7 +283,7 @@ def subpage(key, lang):
     graph = [{"@type": "Article" if kind == "guide" else "WebPage", "@id": C.SITE + L(key, lang) + "#page", "url": C.SITE + L(key, lang),
               "name": t["title"], "headline": t["h1"], "description": t["desc"], "inLanguage": f"{lang}-CA",
               "isPartOf": {"@id": C.SITE + "/#website"}, "about": {"@id": BIZ_ID}, "publisher": {"@id": BIZ_ID}, "dateModified": D_MOD}, cj,
-             {"@type": "LocalBusiness", "@id": BIZ_ID, "name": "Entretien Laval — Chiffons ÉCO", "url": C.SITE + "/", "telephone": "+1-438-831-3611"}]
+             {"@type": "LocalBusiness", "@id": BIZ_ID, "name": "Entretien Laval — Chiffons ÉCO", "url": C.SITE + "/"}]
     if kind == "guide": graph[0].update({"author": {"@id": BIZ_ID}, "image": C.SITE + "/img/" + pg["img"], "datePublished": D_PUB})
     if faq and kind != "thanks": graph.append(faq_ld(faq, lang))
     for pid in pg.get("products", []): graph.append(product_ld(pid, lang))
@@ -300,7 +300,7 @@ def subpage(key, lang):
             {"@type": "ListItem", "position": i + 1, "url": C.SITE + L(k, lang), "name": C.PAGES[k][lang]["short"]} for i, k in enumerate(lst)]})
     noindex = kind == "thanks"
     media = f'<div class="frame">{img_tag(pg["img"], t["alt"], lazy=False, hi=True)}</div>' if pg.get("img") else ""
-    hero_cta = "" if noindex else f'<div class="cta-row"><a class="btn btn-primary" href="{L("home#devis", lang)}">{u["quote"]}</a><a class="btn btn-ghost" href="{C.TEL}">{u["call_btn"]} {C.PHONE}</a></div>'
+    hero_cta = "" if noindex else f'<div class="cta-row"><a class="btn btn-primary" href="{L("home#devis", lang)}">{u["quote"]}</a><a class="btn btn-ghost" href="mailto:{C.EMAIL}">{C.EMAIL}</a></div>'
     if noindex: hero_cta = f'<div class="cta-row"><a class="btn btn-primary" href="{L("home", lang)}">{u["home"]}</a></div>'
     hero = f'<section class="phero"><div class="wrap {"phero-grid" if media else ""}"><div><div class="eyebrow">{t["eyebrow"]}</div><h1>{t["h1"]}</h1><p class="lede">{fill(t["lede"], lang)}</p>{hero_cta}</div>{media}</div></section>'
     body = ""
@@ -327,8 +327,8 @@ def subpage(key, lang):
         body += f'<section class="section"><div class="wrap"><div class="sec-head"><h2>{u["related"]}</h2></div>{cards(pg["rel"], lang)}</div></section>'
     if not noindex: body += ctaband(lang)
     if kind == "thanks":
-        msg = {"fr": ("Merci! Votre paiement est reçu.", "Commande no {id}. Nous vous contactons rapidement pour fixer la date de livraison. Questions : 438-831-3611."),
-               "en": ("Thank you! Your payment was received.", "Order no. {id}. We'll contact you shortly to set the delivery date. Questions: 438-831-3611.")}[lang]
+        msg = {"fr": ("Merci! Votre paiement est reçu.", "Commande no {id}. Nous vous contactons rapidement pour fixer la date de livraison. Questions : info@entretienlaval.ca."),
+               "en": ("Thank you! Your payment was received.", "Order no. {id}. We'll contact you shortly to set the delivery date. Questions: info@entretienlaval.ca.")}[lang]
         body += ("<script>(function(){var id=new URLSearchParams(location.search).get('commande');if(!id)return;"
                  f"document.querySelector('h1').textContent={json.dumps(msg[0], ensure_ascii=False)};"
                  f"var l=document.querySelector('.lede');if(l)l.textContent={json.dumps(msg[1], ensure_ascii=False)}.replace('{{id}}',id.slice(0,40));}})();</script>")
@@ -376,14 +376,14 @@ def homepage(lang):
 </form>"""
     lbl = h["lbl"]
     line = lambda ic, label, val: f'<div class="cline">{ICON[ic].replace("<svg", HID, 1)}<div><div class="lbl">{label}</div>{val}</div></div>'
-    info = (line("phone", lbl["phone"], f'<a class="val" href="{C.TEL}">{C.PHONE}</a>') + line("mail", lbl["mail"], f'<a class="val" href="mailto:{C.EMAIL}">{C.EMAIL}</a>')
+    info = (line("mail", lbl["mail"], f'<a class="val" href="mailto:{C.EMAIL}">{C.EMAIL}</a>')
             + line("ig", lbl["ig"], '<a class="val" href="https://www.instagram.com/entretienlaval/" rel="noopener" target="_blank">@entretienlaval</a>')
             + line("pin", lbl["pin"], '<span class="val">309-1355 Boul. Le Corbusier<br>Laval, QC H7N 0G4</span>')
             + line("biz", lbl["biz"], '<span class="val">Entretien Laval</span><div class="mono" style="font-size:12px;color:#5f5d53;margin-top:4px">NEQ 2280629637</div>'))
     devis = f"""<section class="section band" id="devis"><span id="contact"></span><div class="wrap"><div class="sec-head"><div class="eyebrow">{h['devis_eyebrow']}</div><h2>{h['devis_h2']}</h2></div>
 <div class="contact-grid">{form}<div><div class="cbox"><h3>{h['ready_h']}</h3><p>{h['ready_p']}</p><div class="actions">
 <a class="cta" href="mailto:{C.EMAIL}"><span>{h['c_email_btn']}</span>{ICON['arrow']}</a>
-<a class="cta" href="{C.TEL}"><span>{h['c_call_btn']}</span>{ICON['arrow']}</a></div></div>
+</div></div>
 <div class="cinfo" style="margin-top:18px">{info}</div></div></div></div></section>"""
     biz = business(lang)
     graph = [biz, {"@type": "WebSite", "@id": C.SITE + "/#website", "url": C.SITE + "/", "name": "Chiffons ÉCO — Entretien Laval", "inLanguage": ["fr-CA", "en-CA"], "publisher": {"@id": BIZ_ID}},
@@ -420,7 +420,7 @@ def llms():
     lines = ["# Chiffons ÉCO — Entretien Laval", "",
              "> Entretien Laval (Chiffons ÉCO / ECO Rags) sells recycled cotton wiping rags (shop rags, guenilles) in 25 lb bags, washed, sorted and treated against bedbugs, packed in Laval, Québec. Delivery across Greater Montreal and, from 1,000 lb, anywhere in Québec.", "",
              "Products and prices (per 25 lb bag, before tax): colored T-shirt rags $32, colored terry rags $32, white terry rags $42, white T-shirt rags $42. Delivery fee depends on location. Orders confirmed and paid one week before delivery.", "",
-             f"Contact: {C.PHONE} · {C.EMAIL} · 309-1355 Boul. Le Corbusier, Laval, QC H7N 0G4 · NEQ 2280629637", "", "## Français"]
+             f"Contact: {C.EMAIL} · 309-1355 Boul. Le Corbusier, Laval, QC H7N 0G4 · NEQ 2280629637", "", "## Français"]
     lines += [f"- [{C.PAGES[k]['fr']['short'] if k != 'home' else 'Accueil'}]({C.SITE}{L(k, 'fr')})" for k in indexable()]
     lines += ["", "## English"] + [f"- [{C.PAGES[k]['en']['short'] if k != 'home' else 'Home'}]({C.SITE}{L(k, 'en')})" for k in indexable()]
     open(os.path.join(ROOT, "llms.txt"), "w").write("\n".join(lines) + "\n")

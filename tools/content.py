@@ -4,8 +4,6 @@ SITE = "https://entretienlaval.ca"
 PHONE = "438-831-3611"
 TEL = "tel:+14388313611"
 EMAIL = "info@entretienlaval.ca"
-WA = {"fr": "https://wa.me/14388313611?text=Bonjour%2C%20je%20vous%20%C3%A9cris%20au%20sujet%20des%20Chiffons%20%C3%89CO",
-      "en": "https://wa.me/14388313611?text=Hello%2C%20I%27m%20writing%20about%20ECO%20Rags"}
 PACK = {"fr": ("sac de 25 lb", "sacs de 25 lb"), "en": ("25 lb bag", "25 lb bags")}
 GOOGLE_SITE_VERIFICATION = ""  # paste the token from Search Console > Settings > Ownership > HTML tag
 INDEXNOW_KEY = "7c1e4b9a2d6f4e0b8a35c9d1f2e7b604"
@@ -39,7 +37,7 @@ TERMS = {
 }
 
 UI = {
- "fr": {"home": "Accueil", "wa_fab": "WhatsApp : écrivez-nous au 438-831-3611", "skip": "Aller au contenu", "menu": "Menu", "call": "Appeler le 438-831-3611",
+ "fr": {"home": "Accueil", "wa_fab": "Courriel", "skip": "Aller au contenu", "menu": "Menu", "call": "Nous écrire",
         "quote": "Demander une soumission", "call_btn": "Appeler", "sectors": "Secteurs", "products": "Produits",
         "guides": "Guides", "info": "Infos", "more": "En savoir plus →", "read": "Lire le guide →",
         "faq_h": "Questions fréquentes", "related": "À voir aussi", "prices_h": "Prix par [pack]",
@@ -48,7 +46,7 @@ UI = {
         "foot_tag": "Chiffons d'essuyage en textiles recyclés, triés et conditionnés à Laval, Québec.",
         "nav_label": "Navigation principale", "lang_name": "English", "crumbs": "Fil d'Ariane",
         "updated": "Mis à jour", "unit": "/ [pack]", "delivery_to": "Livraison :"},
- "en": {"home": "Home", "wa_fab": "WhatsApp: chat with us at 438-831-3611", "skip": "Skip to content", "menu": "Menu", "call": "Call 438-831-3611",
+ "en": {"home": "Home", "wa_fab": "Email", "skip": "Skip to content", "menu": "Menu", "call": "Email us",
         "quote": "Request a quote", "call_btn": "Call", "sectors": "Industries", "products": "Products",
         "guides": "Guides", "info": "Info", "more": "Learn more →", "read": "Read the guide →",
         "faq_h": "Frequently asked questions", "related": "See also", "prices_h": "Price per [pack]",
@@ -74,7 +72,7 @@ FAQ = {
   ("Quelle différence entre t-shirt et ratine?", "Le t-shirt (jersey) est mince, doux et souple : idéal pour l'usage général, les mains et les surfaces délicates. La ratine (tissu éponge) est épaisse et absorbe davantage : idéale pour l'huile, la graisse et les gros dégâts."),
   ("Blanc ou couleur?", "Le blanc ne transfère pas de couleur : pour la peinture, la finition, le vernis et les surfaces claires. La couleur coûte moins cher et convient à l'essuyage de tous les jours au garage, à l'atelier et sur les chantiers."),
   ("Livrez-vous? Où?", "Oui, à votre adresse : Laval, Montréal, Longueuil, Terrebonne, Blainville, Boisbriand et le reste du Grand Montréal. Ailleurs au Québec, nous livrons à partir de 1 000 lb par livraison. Les frais dépendent de l'emplacement. Voir <a href=\"{{livraison}}\">la livraison</a>."),
-  ("Comment commander?", "Remplissez le <a href=\"{{home#devis}}\">formulaire de soumission</a>, appelez le 438-831-3611 ou écrivez à info@entretienlaval.ca. La commande est confirmée et payée une semaine avant la livraison."),
+  ("Comment commander?", "Remplissez le <a href=\"{{home#devis}}\">formulaire de soumission</a> ou écrivez à info@entretienlaval.ca. La commande est confirmée et payée une semaine avant la livraison."),
   ("Y a-t-il un minimum de commande?", "Hors Laval et Montréal, le minimum est de 1 000 lb (40 sacs) par livraison. Pour le Grand Montréal, demandez-nous les conditions selon votre secteur."),
   ("Les chiffons sont-ils propres?", "Oui. Chaque lot est lavé et traité contre les punaises de lit avant d'être trié et emballé à Laval."),
   ("Offrez-vous des échantillons?", "Oui, sur demande, pour vérifier la qualité et le format avant une première commande."),
@@ -89,7 +87,7 @@ FAQ = {
   ("What's the difference between T-shirt and terry?", "T-shirt (jersey) is thin, soft and flexible: ideal for general use, hands and delicate surfaces. Terry (towel cloth) is thick and absorbs more: ideal for oil, grease and big spills."),
   ("White or colored?", "White doesn't transfer color: for painting, finishing, varnish and light surfaces. Colored costs less and suits everyday wiping in garages, shops and job sites."),
   ("Do you deliver? Where?", "Yes, to your address: Laval, Montréal, Longueuil, Terrebonne, Blainville, Boisbriand and the rest of Greater Montreal. Elsewhere in Québec we deliver from 1,000 lb per delivery. The fee depends on the location. See <a href=\"{{livraison}}\">delivery</a>."),
-  ("How do I order?", "Fill in the <a href=\"{{home#devis}}\">quote form</a>, call 438-831-3611 or email info@entretienlaval.ca. Orders are confirmed and paid one week before delivery."),
+  ("How do I order?", "Fill in the <a href=\"{{home#devis}}\">quote form</a> or email info@entretienlaval.ca. Orders are confirmed and paid one week before delivery."),
   ("Is there a minimum order?", "Outside Laval and Montréal, the minimum is 1,000 lb (40 bags) per delivery. For Greater Montreal, ask us about the terms for your area."),
   ("Are the rags clean?", "Yes. Every lot is washed and treated against bedbugs before being sorted and packed in Laval."),
   ("Do you offer samples?", "Yes, on request, so you can check quality and size before a first order."),
@@ -118,7 +116,7 @@ HOME = {
         "f_product": "Produit", "f_any": "Je ne sais pas encore", "f_qty": "Quantité (nombre de sacs)", "f_msg": "Message",
         "f_send": "Envoyer la demande", "f_fine": "Vos coordonnées servent uniquement à répondre à votre demande.",
         "ready_h": "Vous préférez parler à quelqu'un?", "ready_p": "Appelez-nous ou écrivez-nous. Livraison dans le Grand Montréal et au Québec.",
-        "c_email_btn": "Écrire un courriel", "c_wa_btn": "Écrire sur WhatsApp", "c_call_btn": "Appeler le 438-831-3611",
+        "c_email_btn": "Écrire un courriel", "c_wa_btn": "Écrire sur WhatsApp", "c_call_btn": "Nous écrire",
         "lbl": {"phone": "Téléphone", "mail": "Courriel", "wa": "WhatsApp", "ig": "Instagram", "pin": "Adresse", "biz": "Entreprise"},
         "hero_cta1": "Demander une soumission", "hero_cta2": "Voir les prix"},
  "en": {"path": "/en/", "title": "Recycled wiping rags in Laval – 25 lb bags | ECO Rags",
@@ -138,7 +136,7 @@ HOME = {
         "f_product": "Product", "f_any": "Not sure yet", "f_qty": "Quantity (number of bags)", "f_msg": "Message",
         "f_send": "Send request", "f_fine": "Your details are only used to answer your request.",
         "ready_h": "Prefer to talk to someone?", "ready_p": "Call or email us. Delivery across Greater Montreal and Québec.",
-        "c_email_btn": "Send an email", "c_wa_btn": "Message on WhatsApp", "c_call_btn": "Call 438-831-3611",
+        "c_email_btn": "Send an email", "c_wa_btn": "Message on WhatsApp", "c_call_btn": "Email us",
         "lbl": {"phone": "Phone", "mail": "Email", "wa": "WhatsApp", "ig": "Instagram", "pin": "Address", "biz": "Business"},
         "hero_cta1": "Request a quote", "hero_cta2": "See prices"},
 }
@@ -695,9 +693,9 @@ PAGES["guide-papier"] = {"kind": "guide", "img": IMG_SYM, "rel": ["entretien", "
 
 PAGES["merci"] = {"kind": "thanks", "img": None, "rel": [],
  "fr": {"path": "/merci/", "short": "Merci", "title": "Merci – demande reçue | Chiffons ÉCO", "desc": "Votre demande de soumission a bien été reçue.",
-  "eyebrow": "Demande reçue", "h1": "Merci! Votre demande est envoyée.", "lede": "Nous vous répondons rapidement par courriel ou par téléphone. Pour une urgence, appelez le 438-831-3611.", "card": "", "body": ""},
+  "eyebrow": "Demande reçue", "h1": "Merci! Votre demande est envoyée.", "lede": "Nous vous répondons rapidement par courriel ou par téléphone. Pour une urgence, écrivez à info@entretienlaval.ca.", "card": "", "body": ""},
  "en": {"path": "/en/thanks/", "short": "Thanks", "title": "Thank you – request received | ECO Rags", "desc": "Your quote request was received.",
-  "eyebrow": "Request received", "h1": "Thank you! Your request was sent.", "lede": "We'll get back to you quickly by email or phone. For anything urgent, call 438-831-3611.", "card": "", "body": ""},
+  "eyebrow": "Request received", "h1": "Thank you! Your request was sent.", "lede": "We'll get back to you quickly by email or phone. For anything urgent, email info@entretienlaval.ca.", "card": "", "body": ""},
 }
 
 # ---------------- expansion modules ----------------
@@ -722,13 +720,13 @@ PAGES["apropos"] = {"kind": "info", "img": IMG_BAGS, "rel": ["gros", "livraison"
 <li><b>Prix</b> : t-shirt ou ratine couleur 32 $ le sac; t-shirt ou ratine blanc 42 $ le sac. Avant taxes, quantité illimitée.</li>
 <li><b>Livraison</b> : Laval, Montréal et le Grand Montréal; partout au Québec à partir de 1 000 lb. Frais selon l'emplacement.</li>
 <li><b>Clients</b> : garages, ateliers, entreprises de ménage, chantiers, restaurants, industries, distributeurs.</li>
-<li><b>Contact</b> : 438-831-3611 (téléphone), info@entretienlaval.ca.</li></ul>
+<li><b>Contact</b> : info@entretienlaval.ca.</li></ul>
 <h2>Où acheter des guenilles en gros à Laval ou à Montréal?</h2>
 <p>Entretien Laval vend des <a href="{{gros}}">guenilles en gros</a> en sacs de 25 lb, livrées à <a href="{{ville-laval}}">Laval</a>, à <a href="{{ville-montreal}}">Montréal</a> et dans le Grand Montréal. Demandez une <a href="{{home#devis}}">soumission</a>.</p>
 <h2>Pourquoi des chiffons recyclés?</h2>
 <p>Ils absorbent mieux que le papier et réduisent les déchets : les textiles récupérés auraient sinon fini à l'enfouissement. Voir le guide <a href="{{guide-papier}}">chiffons recyclés ou papier</a>.</p>""",
   "faq": [("Où acheter des chiffons d'essuyage en gros au Québec?", "Chez Entretien Laval (Chiffons ÉCO), à Laval : sacs de 25 lb dès 32 $, livrés au Grand Montréal et partout au Québec à partir de 1 000 lb."),
-          ("Qui vend des guenilles de garage à Laval?", "Entretien Laval vend des guenilles de coton recyclé pour garages, en t-shirt ou en ratine, au 438-831-3611.")]},
+          ("Qui vend des guenilles de garage à Laval?", "Entretien Laval vend des guenilles de coton recyclé pour garages, en t-shirt ou en ratine.")]},
  "en": {"path": "/en/about/", "short": "About", "title": "About Entretien Laval – ECO Rags, wholesale wiping rags",
   "desc": "Entretien Laval (ECO Rags) sells recycled wiping rags in 25 lb bags from $32, delivered across Greater Montreal and anywhere in Québec.",
   "eyebrow": "About", "h1": "Entretien Laval – ECO Rags", "lede": "A Laval company that turns reclaimed textiles into wiping rags for Québec businesses.",
@@ -740,13 +738,13 @@ PAGES["apropos"] = {"kind": "info", "img": IMG_BAGS, "rel": ["gros", "livraison"
 <li><b>Prices</b>: colored T-shirt or terry $32 per bag; white T-shirt or terry $42 per bag. Before tax, no quantity limit.</li>
 <li><b>Delivery</b>: Laval, Montréal and Greater Montreal; anywhere in Québec from 1,000 lb. Fees depend on location.</li>
 <li><b>Customers</b>: garages, workshops, cleaning companies, job sites, restaurants, industry, distributors.</li>
-<li><b>Contact</b>: 438-831-3611 (phone), info@entretienlaval.ca.</li></ul>
+<li><b>Contact</b>: info@entretienlaval.ca.</li></ul>
 <h2>Where to buy rags in bulk in Laval or Montreal?</h2>
 <p>Entretien Laval sells <a href="{{gros}}">wholesale rags</a> in 25 lb bags, delivered in <a href="{{ville-laval}}">Laval</a>, <a href="{{ville-montreal}}">Montréal</a> and Greater Montreal. Request a <a href="{{home#devis}}">quote</a>.</p>
 <h2>Why recycled rags?</h2>
 <p>They absorb better than paper and cut waste: the reclaimed textiles would otherwise go to landfill. See the guide <a href="{{guide-papier}}">recycled rags vs paper</a>.</p>""",
   "faq": [("Where can I buy wiping rags in bulk in Québec?", "From Entretien Laval (ECO Rags) in Laval: 25 lb bags from $32, delivered across Greater Montreal and anywhere in Québec from 1,000 lb."),
-          ("Who sells shop rags in Laval?", "Entretien Laval sells recycled cotton shop rags for garages, T-shirt or terry, at 438-831-3611.")]}}
+          ("Who sells shop rags in Laval?", "Entretien Laval sells recycled cotton shop rags for garages, T-shirt or terry.")]}}
 _m = PAGES.pop("merci"); PAGES["merci"] = _m
 
 # ---------------- audit follow-ups ----------------
