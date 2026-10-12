@@ -3,7 +3,7 @@
 SITE = "https://entretienlaval.ca"
 PHONE = "438-831-3611"
 TEL = "tel:+14388313611"
-EMAIL = "hisham@entretienlaval.ca"
+EMAIL = "info@entretienlaval.ca"
 WA = {"fr": "https://wa.me/14388313611?text=Bonjour%2C%20je%20vous%20%C3%A9cris%20au%20sujet%20des%20Chiffons%20%C3%89CO",
       "en": "https://wa.me/14388313611?text=Hello%2C%20I%27m%20writing%20about%20ECO%20Rags"}
 PACK = {"fr": ("sac de 25 lb", "sacs de 25 lb"), "en": ("25 lb bag", "25 lb bags")}
@@ -74,7 +74,7 @@ FAQ = {
   ("Quelle différence entre t-shirt et ratine?", "Le t-shirt (jersey) est mince, doux et souple : idéal pour l'usage général, les mains et les surfaces délicates. La ratine (tissu éponge) est épaisse et absorbe davantage : idéale pour l'huile, la graisse et les gros dégâts."),
   ("Blanc ou couleur?", "Le blanc ne transfère pas de couleur : pour la peinture, la finition, le vernis et les surfaces claires. La couleur coûte moins cher et convient à l'essuyage de tous les jours au garage, à l'atelier et sur les chantiers."),
   ("Livrez-vous? Où?", "Oui, à votre adresse : Laval, Montréal, Longueuil, Terrebonne, Blainville, Boisbriand et le reste du Grand Montréal. Ailleurs au Québec, nous livrons à partir de 1 000 lb par livraison. Les frais dépendent de l'emplacement. Voir <a href=\"{{livraison}}\">la livraison</a>."),
-  ("Comment commander?", "Remplissez le <a href=\"{{home#devis}}\">formulaire de soumission</a>, appelez le 438-831-3611, écrivez à hisham@entretienlaval.ca ou sur WhatsApp. La commande est confirmée et payée une semaine avant la livraison."),
+  ("Comment commander?", "Remplissez le <a href=\"{{home#devis}}\">formulaire de soumission</a>, appelez le 438-831-3611, écrivez à info@entretienlaval.ca ou sur WhatsApp. La commande est confirmée et payée une semaine avant la livraison."),
   ("Y a-t-il un minimum de commande?", "Hors Laval et Montréal, le minimum est de 1 000 lb (40 sacs) par livraison. Pour le Grand Montréal, demandez-nous les conditions selon votre secteur."),
   ("Les chiffons sont-ils propres?", "Oui. Chaque lot est lavé et traité contre les punaises de lit avant d'être trié et emballé à Laval."),
   ("Offrez-vous des échantillons?", "Oui, sur demande, pour vérifier la qualité et le format avant une première commande."),
@@ -89,7 +89,7 @@ FAQ = {
   ("What's the difference between T-shirt and terry?", "T-shirt (jersey) is thin, soft and flexible: ideal for general use, hands and delicate surfaces. Terry (towel cloth) is thick and absorbs more: ideal for oil, grease and big spills."),
   ("White or colored?", "White doesn't transfer color: for painting, finishing, varnish and light surfaces. Colored costs less and suits everyday wiping in garages, shops and job sites."),
   ("Do you deliver? Where?", "Yes, to your address: Laval, Montréal, Longueuil, Terrebonne, Blainville, Boisbriand and the rest of Greater Montreal. Elsewhere in Québec we deliver from 1,000 lb per delivery. The fee depends on the location. See <a href=\"{{livraison}}\">delivery</a>."),
-  ("How do I order?", "Fill in the <a href=\"{{home#devis}}\">quote form</a>, call 438-831-3611, email hisham@entretienlaval.ca or message us on WhatsApp. Orders are confirmed and paid one week before delivery."),
+  ("How do I order?", "Fill in the <a href=\"{{home#devis}}\">quote form</a>, call 438-831-3611, email info@entretienlaval.ca or message us on WhatsApp. Orders are confirmed and paid one week before delivery."),
   ("Is there a minimum order?", "Outside Laval and Montréal, the minimum is 1,000 lb (40 bags) per delivery. For Greater Montreal, ask us about the terms for your area."),
   ("Are the rags clean?", "Yes. Every lot is washed and treated against bedbugs before being sorted and packed in Laval."),
   ("Do you offer samples?", "Yes, on request, so you can check quality and size before a first order."),
@@ -722,7 +722,7 @@ PAGES["apropos"] = {"kind": "info", "img": IMG_BAGS, "rel": ["gros", "livraison"
 <li><b>Prix</b> : t-shirt ou ratine couleur 32 $ le sac; t-shirt ou ratine blanc 42 $ le sac. Avant taxes, quantité illimitée.</li>
 <li><b>Livraison</b> : Laval, Montréal et le Grand Montréal; partout au Québec à partir de 1 000 lb. Frais selon l'emplacement.</li>
 <li><b>Clients</b> : garages, ateliers, entreprises de ménage, chantiers, restaurants, industries, distributeurs.</li>
-<li><b>Contact</b> : 438-831-3611 (téléphone et WhatsApp), hisham@entretienlaval.ca.</li></ul>
+<li><b>Contact</b> : 438-831-3611 (téléphone et WhatsApp), info@entretienlaval.ca.</li></ul>
 <h2>Où acheter des guenilles en gros à Laval ou à Montréal?</h2>
 <p>Entretien Laval vend des <a href="{{gros}}">guenilles en gros</a> en sacs de 25 lb, livrées à <a href="{{ville-laval}}">Laval</a>, à <a href="{{ville-montreal}}">Montréal</a> et dans le Grand Montréal. Demandez une <a href="{{home#devis}}">soumission</a>.</p>
 <h2>Pourquoi des chiffons recyclés?</h2>
@@ -740,7 +740,7 @@ PAGES["apropos"] = {"kind": "info", "img": IMG_BAGS, "rel": ["gros", "livraison"
 <li><b>Prices</b>: colored T-shirt or terry $32 per bag; white T-shirt or terry $42 per bag. Before tax, no quantity limit.</li>
 <li><b>Delivery</b>: Laval, Montréal and Greater Montreal; anywhere in Québec from 1,000 lb. Fees depend on location.</li>
 <li><b>Customers</b>: garages, workshops, cleaning companies, job sites, restaurants, industry, distributors.</li>
-<li><b>Contact</b>: 438-831-3611 (phone and WhatsApp), hisham@entretienlaval.ca.</li></ul>
+<li><b>Contact</b>: 438-831-3611 (phone and WhatsApp), info@entretienlaval.ca.</li></ul>
 <h2>Where to buy rags in bulk in Laval or Montreal?</h2>
 <p>Entretien Laval sells <a href="{{gros}}">wholesale rags</a> in 25 lb bags, delivered in <a href="{{ville-laval}}">Laval</a>, <a href="{{ville-montreal}}">Montréal</a> and Greater Montreal. Request a <a href="{{home#devis}}">quote</a>.</p>
 <h2>Why recycled rags?</h2>
