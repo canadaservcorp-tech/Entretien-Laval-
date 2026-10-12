@@ -139,7 +139,6 @@ def footer(lang):
 <div class="fbot"><span>© {YEAR} Entretien Laval — Chiffons ÉCO / ECO Rags</span><span>{'Website by' if lang == 'en' else 'Site conçu par'} <a href="https://www.ateliersurmesure.ca">Atelier Sur Mesure</a></span><span><a href="{L('home', 'fr')}" lang="fr-CA">Français</a> · <a href="{L('home', 'en')}" lang="en-CA">English</a></span></div>
 </div>
 </footer>
-<a class="wafab" href="{C.WA[lang]}" target="_blank" rel="noopener" aria-label="{u['wa_fab']}">{ICON['wa'].replace('<svg', HID, 1)}<span>WhatsApp</span></a>
 <script>document.querySelectorAll('.mnav a').forEach(function(a){{a.addEventListener('click',function(){{a.closest('details').removeAttribute('open')}})}});</script>
 <script async src="https://www.ateliersurmesure.ca/t.js"></script>
 </body>
@@ -378,14 +377,12 @@ def homepage(lang):
     lbl = h["lbl"]
     line = lambda ic, label, val: f'<div class="cline">{ICON[ic].replace("<svg", HID, 1)}<div><div class="lbl">{label}</div>{val}</div></div>'
     info = (line("phone", lbl["phone"], f'<a class="val" href="{C.TEL}">{C.PHONE}</a>') + line("mail", lbl["mail"], f'<a class="val" href="mailto:{C.EMAIL}">{C.EMAIL}</a>')
-            + line("wa", lbl["wa"], f'<a class="val" href="{C.WA[lang]}" rel="noopener" target="_blank">{C.PHONE}</a>')
             + line("ig", lbl["ig"], '<a class="val" href="https://www.instagram.com/entretienlaval/" rel="noopener" target="_blank">@entretienlaval</a>')
             + line("pin", lbl["pin"], '<span class="val">309-1355 Boul. Le Corbusier<br>Laval, QC H7N 0G4</span>')
             + line("biz", lbl["biz"], '<span class="val">Entretien Laval</span><div class="mono" style="font-size:12px;color:#5f5d53;margin-top:4px">NEQ 2280629637</div>'))
     devis = f"""<section class="section band" id="devis"><span id="contact"></span><div class="wrap"><div class="sec-head"><div class="eyebrow">{h['devis_eyebrow']}</div><h2>{h['devis_h2']}</h2></div>
 <div class="contact-grid">{form}<div><div class="cbox"><h3>{h['ready_h']}</h3><p>{h['ready_p']}</p><div class="actions">
 <a class="cta" href="mailto:{C.EMAIL}"><span>{h['c_email_btn']}</span>{ICON['arrow']}</a>
-<a class="cta" href="{C.WA[lang]}" rel="noopener" target="_blank"><span>{h['c_wa_btn']}</span>{ICON['wa']}</a>
 <a class="cta" href="{C.TEL}"><span>{h['c_call_btn']}</span>{ICON['arrow']}</a></div></div>
 <div class="cinfo" style="margin-top:18px">{info}</div></div></div></div></section>"""
     biz = business(lang)
