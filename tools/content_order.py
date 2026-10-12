@@ -7,7 +7,7 @@ GST and QST are added (required). The delivery fee is the same whatever the paym
 """
 
 CHECKOUT = {
-    # ---- Hicham sets these ----
+    # ---- Owner sets these ----
     # Delivery zones, matched by postal-code prefix (first match wins). Fee in CAD before tax.
     "zones": [
         {"id": "laval", "name": "Laval", "prefix": "H7", "fee": 15, "min_bags": 1},
