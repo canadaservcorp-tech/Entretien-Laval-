@@ -274,7 +274,7 @@ S("municipal", BAGS, ["entretien", "garage", "gros"],
 <p>Nos chiffons sont faits de textiles récupérés qui auraient fini à l'enfouissement. Un argument concret pour vos objectifs de réduction des déchets. Voir aussi le guide <a href="{{guide-papier}}">chiffons recyclés ou papier</a>.</p>
 <h2>Achat et facturation</h2>
 <p>Nous fournissons une facture avec nos numéros de TPS et de TVQ. Les prix sont avant taxes. La commande est confirmée et payée une semaine avant la livraison. Demandez une <a href="{{home#devis}}">soumission</a> pour votre service.</p>""",
-  "faq": [("Pouvez-vous fournir une soumission pour notre service d'achats?", "Oui. Demandez-la en ligne ou par courriel à hisham@entretienlaval.ca, avec la quantité et l'adresse de livraison."),
+  "faq": [("Pouvez-vous fournir une soumission pour notre service d'achats?", "Oui. Demandez-la en ligne ou par courriel à info@entretienlaval.ca, avec la quantité et l'adresse de livraison."),
           ("Livrez-vous plusieurs bâtiments?", "Nous livrons à l'adresse indiquée dans la soumission. Pour plusieurs adresses, précisez-les dans votre demande.")]},
  {"path": "/en/municipal-school-maintenance-rags/", "short": "Municipalities and schools",
   "title": "Rags for municipalities, schools and public works",
@@ -291,7 +291,7 @@ S("municipal", BAGS, ["entretien", "garage", "gros"],
 <p>Our rags are made from reclaimed textiles that would otherwise go to landfill: a concrete point for your waste-reduction goals. See also the guide <a href="{{guide-papier}}">recycled rags vs paper</a>.</p>
 <h2>Purchasing and invoicing</h2>
 <p>We provide an invoice with our GST and QST numbers. Prices are before tax. Orders are confirmed and paid one week before delivery. Request a <a href="{{home#devis}}">quote</a> for your department.</p>""",
-  "faq": [("Can you provide a quote for our purchasing department?", "Yes. Request it online or by email at hisham@entretienlaval.ca, with the quantity and delivery address."),
+  "faq": [("Can you provide a quote for our purchasing department?", "Yes. Request it online or by email at info@entretienlaval.ca, with the quantity and delivery address."),
           ("Do you deliver to several buildings?", "We deliver to the address in the quote. For several addresses, list them in your request.")]})
 
 SECTOR2_PAGES = P
